@@ -63,6 +63,7 @@ Route::get('/firmalar/guncelle-firma/{id}','getController@guncelleFirma');
 Route::get('/calisanlar/guncelle-calisan/{user}','getController@guncelleCalisan');
 Route::get('/musteriler/guncelle-musteri/{id}','getController@guncelleMusteri');
 Route::get('/birimler/guncelle-birim/{id}','getController@guncelleBirim');
+Route::get('/talepler/guncelle-talep/{id}','getController@guncelleTalep');
 Route::get('/ekle-birim-turu/guncelle-birim-turu/{id}','getController@guncelleBirimTuru');
 Route::get('/ekle-urun-kategori/guncelle-urun-kategori/{id}','getController@guncelleUrunKategori');
 Route::get('/ekle-urun-birim/guncelle-urun-birim/{id}','getController@guncelleUrunBirim');
