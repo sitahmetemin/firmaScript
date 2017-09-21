@@ -324,6 +324,16 @@ class getController extends AdminController
         ]);
     }
 
+    public function guncelleTalep($id)
+    {
+        return view('guncelle.guncelle-talep', [
+            'bulunanTalep' => Talep::find($id),
+            'bulunanTalepDetay' => TalepDetay::where('talep_id', $id)->get(),
+            'cekilenUrunKategori' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+        ]);
+    }
+
     //-----------------------------------------------------------------------Güncelle Sayfaları BİTİŞ
 
 
