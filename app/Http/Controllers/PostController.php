@@ -246,10 +246,6 @@ class PostController extends AdminController
 //-----------------------------------------------------------------------------------------Raporlama
     public function raporla(Request $request)
     {
-        $baslangicTarihi = $request->baslangicTarihi;
-        $bitisTarihi = $request->bitisTarihi;
-
-        return $baslangicTarihi . '----' . $bitisTarihi;
 
     }
 

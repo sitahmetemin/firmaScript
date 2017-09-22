@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 
-    <div class="col-md-12">
+    <div  class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-body">
                 <ul class="nav nav-tabs">
@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-
+    <div class="clearfix margin-bottom-20"></div>
 @endsection
 
 @section('css')

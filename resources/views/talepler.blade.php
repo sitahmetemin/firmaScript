@@ -9,7 +9,7 @@
             <strong>BAŞARISIZ!</strong> İşleminiz Gerçekleştirilemedi!
         </div>
     @endif
-    <div class="row">
+    <div  class="row">
         <div class="col-md-12">
             <!-- Begin: life time stats -->
             <div class="portlet light portlet-fit portlet-datatable bordered">
@@ -79,20 +79,20 @@
                                 <tr>
                                     <td> {{ $talep->id }}</td>
                                     {{--<td>--}}
-                                        {{--@foreach($talep->talepDetaylari->take(3) as $talepDetaylari)--}}
+                                    {{--@foreach($talep->talepDetaylari->take(3) as $talepDetaylari)--}}
 
-                                            {{--@foreach($cekilenUrunler as $urun)--}}
+                                    {{--@foreach($cekilenUrunler as $urun)--}}
 
-                                                {{--@if( $talepDetaylari->urun_id == $urun->id )--}}
-                                                    {{--<label class="label label-primary">{{ $urun->ad }} ( {{ $talepDetaylari->urun_adet }} )</label>&nbsp;<i class="fa fa-arrow-right"></i>--}}
-                                                    {{--@if(!empty($talepDetaylari->urunBirimi->ad))--}}
-                                                        {{--<label class="label label-success">[ {{ $talepDetaylari->urunBirimi->ad }} ]</label>--}}
-                                                    {{--@else--}}
-                                                        {{--[<i class="fa fa-close"></i>]--}}
-                                                    {{--@endif--}}
-                                                {{--@endif--}}
-                                            {{--@endforeach--}}
-                                        {{--@endforeach--}}
+                                    {{--@if( $talepDetaylari->urun_id == $urun->id )--}}
+                                    {{--<label class="label label-primary">{{ $urun->ad }} ( {{ $talepDetaylari->urun_adet }} )</label>&nbsp;<i class="fa fa-arrow-right"></i>--}}
+                                    {{--@if(!empty($talepDetaylari->urunBirimi->ad))--}}
+                                    {{--<label class="label label-success">[ {{ $talepDetaylari->urunBirimi->ad }} ]</label>--}}
+                                    {{--@else--}}
+                                    {{--[<i class="fa fa-close"></i>]--}}
+                                    {{--@endif--}}
+                                    {{--@endif--}}
+                                    {{--@endforeach--}}
+                                    {{--@endforeach--}}
                                     {{--</td>--}}
                                     <td> {{ $talep->aciklama }}</td>
                                     <td>
@@ -125,27 +125,33 @@
                                             <div class="col-md-3">
                                                 <a href="/talepler/detay-talep/{{ $talep->id }}" title="Detaylar" class="btn btn-warning btn-sm"><i class="fa fa-search"></i></a>
                                             </div>
-                                            <div class="col-md-3">
-                                                <a href="/talepler/onayla-talep/{{ $talep->id }}" title="Onayla" class="btn btn-primary btn-sm"><i class="fa fa-check"></i></a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="/talepler/guncelle-talep/{{ $talep->id }}" title="Güncelle" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="/talepler/sil-talep/{{ $talep->id }}" title="Sil" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            </div>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->id != $talep->calisan->id)
+                                                <div class="col-md-3">
+                                                    <a href="/talepler/onayla-talep/{{ $talep->id }}" title="Onayla" class="btn btn-primary btn-sm"><i class="fa fa-check"></i></a>
+                                                </div>
+                                            @endif
+                                            @if(\Illuminate\Support\Facades\Auth::user()->id == $talep->calisan->id)
+                                                <div class="col-md-3">
+                                                    <a href="/talepler/guncelle-talep/{{ $talep->id }}" title="Güncelle" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="/talepler/sil-talep/{{ $talep->id }}" title="Sil" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
             <!-- End: life time stats -->
         </div>
     </div>
+
 @endsection
 @section('css')
     <!-- BEGIN PAGE LEVEL PLUGINS -->
