@@ -11,20 +11,27 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form method="post" class="form-horizontal form-bordered">
-                        {{ csrf_field() }}
+                    <form method="get" class="form-horizontal form-bordered">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3">Raporunu Almak İstediğiniz Tarih Aralığını Seçin</label>
-                                <div class="col-md-4">
-                                    <div class="input-group" id="defaultrange">
-                                        <input type="text" name="tarih" class="form-control">
-                                        <span class="input-group-btn">
-                                            <button class="btn default date-range-toggle" type="button">
-                                                <i class="fa fa-calendar"></i>
-                                            </button>
-                                        </span>
-                                    </div>
+                                <div class="col-md-3">
+                                    <input name="baslangicTarihi" class="col-md-12" type="date"><br>
+                                    <span>Başlangıç Tarihi</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input name="bitisTarihi" class="col-md-12" type="date"><br>
+                                    <span>Bitiş Tarihi</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Raporlar</label>
+                                <div class="col-md-6">
+                                    <select name="rapor_id" class="form-control select2">
+                                        <option></option>
+                                        <option value="sdaf">denene</option>
+                                    </select>
+                                    <span>Hangi Bölümden Rapor Almak İstediğinizi Seçin</span>
                                 </div>
                             </div>
                         </div>
@@ -48,14 +55,20 @@
 @endsection
 
 @section('css')
-    <link href="/backend/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css"/>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="/backend/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/backend/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL PLUGINS -/backend
+
+
 @endsection
 
 @section('js')
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="/backend/assets/global/plugins/moment.min.js" type="text/javascript"></script>
-    <script src="/backend/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
-    <!-- END PAGE LEVEL PLUGINS -->
 
-    <script src="/backend/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="/backend/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/backend/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
 @endsection
