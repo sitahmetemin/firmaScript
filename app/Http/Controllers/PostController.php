@@ -130,7 +130,7 @@ class PostController extends AdminController
         $request->merge(['talep_eden_calisan_id' => Auth::user()->id]);
         $request->merge(['onay' => 0]);
 
-        $talepEkle = Talep::create($request->only('onay','aciklama', 'referans_tipi', 'birim_id', 'talep_eden_calisan_id', 'talep_eden_birim_id', 'firma_id'));
+        $talepEkle = Talep::create($request->only('onay', 'aciklama', 'referans_tipi', 'birim_id', 'talep_eden_calisan_id', 'talep_eden_birim_id', 'firma_id'));
         if ($talepEkle) {
             $talepEkle->talepDetaylari()->createMany($request->only('urunler')['urunler']);
             $status = 'İşlem Başarılı';
@@ -239,6 +239,73 @@ class PostController extends AdminController
 
         $statu = 'İşlem BAŞARISIZ!';
         return redirect('ekle-urun-birimleri')->with('status', $statu);
+    }
+
+//-----------------------------------------------------------------------------------------Güncelleme İşlemleri Bitiş
+
+//-----------------------------------------------------------------------------------------Raporlama
+    public function raporla(Request $request)
+    {
+        $duzgun = $this->tarihParcala($request->tarih);
+
+        return $duzgun;
+    }
+
+    public function tarihParcala($duzensizTarih)
+    {
+        $tarih = explode('-', $duzensizTarih);
+        // $tarih[0] Başlangıç Tarihini verir
+        // $tarih[1] Bitiş Tarihini Verir.
+
+        $ayGun = explode(' ', $tarih[0]);
+        //$ayGun[0] Ayı verir.
+        //$ayGun[1] Günü verir.
+
+
+
+        switch ($ayGun[0]) {
+            case 'January':
+                $ay = '01';
+                break;
+            case 'February':
+                $ay = '02';
+                break;
+            case 'March':
+                $ay = '03';
+                break;
+            case 'April':
+                $ay = '04';
+                break;
+            case 'May':
+                $ay = '05';
+                break;
+            case 'June':
+                $ay = '06';
+                break;
+            case 'July':
+                $ay = '07';
+                break;
+            case 'August':
+                $ay = '08';
+                break;
+            case 'September':
+                $ay = '09';
+                break;
+            case 'October':
+                $ay = '10';
+                break;
+            case 'November':
+                $ay = '11';
+                break;
+            case 'December':
+                $ay = '12';
+                break;
+            Default:
+                echo 'Seçim Algılanamadı.';
+                break;
+        }
+
+        return $ayGun[1];
     }
 
 

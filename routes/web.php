@@ -96,4 +96,6 @@ Route::post('/ekle-urun-birim/guncelle-urun-birim/{id}', 'PostController@postGun
 
 //--------------------------------------------------------------------------  Veritabanı Güncelle İşlemi BİTİŞ
 
+//--------------------------------------------------------------------------  Rapor Getir İşlemi
+Route::post('/raporlar', 'PostController@raporla');
 

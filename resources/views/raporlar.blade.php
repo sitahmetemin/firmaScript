@@ -11,13 +11,14 @@
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal form-bordered">
+                    <form method="post" class="form-horizontal form-bordered">
+                        {{ csrf_field() }}
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Raporunu Almak İstediğiniz Tarihleri Seçin</label>
+                                <label class="control-label col-md-3">Raporunu Almak İstediğiniz Tarih Aralığını Seçin</label>
                                 <div class="col-md-4">
                                     <div class="input-group" id="defaultrange">
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="tarih" class="form-control">
                                         <span class="input-group-btn">
                                             <button class="btn default date-range-toggle" type="button">
                                                 <i class="fa fa-calendar"></i>
@@ -26,24 +27,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label class="control-label col-md-3">Advance Date Ranges</label>
-                                <div class="col-md-4">
-                                    <div id="reportrange" class="btn default">
-                                        <i class="fa fa-calendar"></i> &nbsp;
-                                        <span> </span>
-                                        <b class="fa fa-angle-down"></b>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn red">
-                                        <i class="fa fa-check"></i> Submit
+                                        <i class="fa fa-list"></i> Listele
                                     </button>
-                                    <button type="button" class="btn default">Cancel</button>
                                 </div>
                             </div>
                         </div>
