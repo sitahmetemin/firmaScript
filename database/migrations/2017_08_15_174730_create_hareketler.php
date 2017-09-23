@@ -15,16 +15,19 @@ class CreateHareketler extends Migration
     {
         Schema::create('hareketler', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('aciklama');
-            $table->boolean('onay');
-            $table->string('referans_tipi');
-            $table->integer('urun_adet');
-            $table->integer('urun_id')->unsigned();
-            $table->integer('urun_birim_id')->unsigned();
-            $table->integer('calisan_id')->unsigned();
-            $table->integer('talep_id')->unsigned();
-            $table->integer('firma_id')->unsigned();
+            $table->integer('referans_tipi');
+            $table->integer('referans_id')->unsigned()->nullable();
+            $table->integer('urun_id')->unsigned()->nullable();
+            $table->integer('urun_birim_id')->unsigned()->nullable();
+            $table->integer('urun_miktar');
+            $table->boolean('hareket_yonu');
+            $table->integer('birim_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('referans_id')
+                ->references('id')
+                ->on('urunler')
+                ->onDelete('cascade');
 
             $table->foreign('urun_id')
                 ->references('id')
@@ -36,19 +39,9 @@ class CreateHareketler extends Migration
                 ->on('urun_birimleri')
                 ->onDelete('cascade');
 
-            $table->foreign('talep_id')
+            $table->foreign('birim_id')
                 ->references('id')
-                ->on('talepler')
-                ->onDelete('cascade');
-
-            $table->foreign('calisan_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('firma_id')
-                ->references('id')
-                ->on('firmalar')
+                ->on('birimler')
                 ->onDelete('cascade');
         });
     }

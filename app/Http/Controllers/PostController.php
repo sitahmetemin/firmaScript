@@ -6,6 +6,7 @@ use App\Birim;
 use App\BirimTuru;
 use App\Firma;
 use App\Musteri;
+use App\Proje;
 use App\Talep;
 use App\Urun;
 use App\UrunBirim;
@@ -65,6 +66,19 @@ class PostController extends AdminController
         }
         $hataStatus = 'İşlem Başarısız!!';
         return redirect('ekle-birim-turu')->with('hataStatus', $hataStatus);
+
+    }
+
+    public function postProjeEkle(Request $request)
+    {
+        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $add = Proje::create($request->all());
+        if ($add) {
+            $status = 'İşlem Başarılı';
+            return redirect('ekle-proje')->with('status', $status);
+        }
+        $hataStatus = 'İşlem Başarısız!!';
+        return redirect('ekle-proje')->with('hataStatus', $hataStatus);
 
     }
 

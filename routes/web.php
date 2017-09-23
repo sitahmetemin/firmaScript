@@ -37,6 +37,7 @@ Route::get('/talepler/ekle-talep/ajaxKategoriUrunleBirimleri/{id}', 'getControll
 Route::get('/ekle-urun-kategori','getController@getirEkleUrunKategori');
 Route::get('/ekle-urun-birimleri','getController@getirUrunBirimleri');
 Route::get('/ekle-birim-turu','getController@getirEkleBirimTuru');
+Route::get('/ekle-proje','getController@getirEkleProje');
 //----------------------------------------------------------------Ekleme Sayfaları Getir BİTİŞ
 
 //-----------------------------------------------------------------Silme Linkler Başlangıç
@@ -82,6 +83,7 @@ Route::post('/talepler/ekle-talep','PostController@postTalepEkle');
 Route::post('/ekle-birim-turu','PostController@postBirimTuruEkle');
 Route::post('/ekle-urun-kategori','PostController@postUrunKategoriEkle');
 Route::post('/ekle-urun-birimleri','PostController@postUrunBirimleriEkle');
+Route::post('/ekle-proje','PostController@postProjeEkle');
 //--------------------------------------------------------------------------Veritabanına Ekle BİTİŞ
 
 //------------------------------------------------------------------------- Veritabanı Güncelle İşlemi Başlangıç

@@ -6,6 +6,7 @@ use App\Birim;
 use App\BirimTuru;
 use App\Firma;
 use App\Musteri;
+use App\Proje;
 use App\Talep;
 use App\TalepDetay;
 use App\Urun;
@@ -110,6 +111,14 @@ class getController extends AdminController
     public function getirRaporlar()
     {
         return view('raporlar');
+    }
+
+    public function getirEkleProje()
+    {
+        return view('ekle.ekle-proje', [
+            'cekilenProjeler' => Proje::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenMusteriler' => Musteri::where('firma_id', Auth::user()->firma_id)->get(),
+        ]);
     }
 
 

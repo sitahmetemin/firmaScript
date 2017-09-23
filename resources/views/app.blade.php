@@ -269,6 +269,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         </ul>
                     </li>
                     <li class="nav-item start ">
+                        <a href="/ekle-proje" class="nav-link nav-toggle">
+                            <i class="fa fa-paste"></i>
+                            <span class="title">Projeler</span>
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start ">
                         <a href="/calisanlar" class="nav-link nav-toggle">
                             <i class="fa fa-group"></i>
                             <span class="title">Çalışanlar</span>
