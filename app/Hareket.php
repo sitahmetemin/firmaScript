@@ -9,27 +9,24 @@ class Hareket extends Model
     protected $table = 'hareketler';
 
     protected $fillable = [
-        'aciklama',
-        'onay',
-        'urun_id',
-        'urun_adet',
-        'urun_birim_id',
+        'referans_tipi',
         'referans_id',
-        'calisan_id',
+        'urun_id',
+        'urun_birim_id',
+        'urun_miktar',
+        'hareket_yonu',
+        'birim_id',
     ];
 
     protected $casts = [
-        'aciklama' => 'string',
-        'onay' => 'boolean',
-        'urun_id' => 'integer',
-        'urun_adet' => 'integer',
-        'urun_birim_id' => 'integer',
+        'referans_tipi' => 'integer',
         'referans_id' => 'integer',
-        'calisan_id' => 'integer',
+        'urun_id' => 'integer',
+        'urun_birim_id' => 'integer',
+        'urun_miktar' => 'integer',
+        'hareket_yonu' => 'boolean',
+        'birim_id' => 'integer',
     ];
 
-    public function referans()
-    {
-        return $this->belongsTo(Referans::class, 'referans_id', 'id');
-    }
+
 }
