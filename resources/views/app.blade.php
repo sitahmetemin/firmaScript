@@ -290,13 +290,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         </a>
                     </li>
                     <li class="nav-item start ">
-                        <a href="/hareketler" class="nav-link nav-toggle">
-                            <i class="fa fa-truck"></i>
-                            <span class="title">Hareketler</span>
-                            <span class="arrow"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item start ">
                         <a href="/raporlar" class="nav-link nav-toggle">
                             <i class="fa fa-print"></i>
                             <span class="title">Raporlar</span>
