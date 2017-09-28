@@ -125,7 +125,7 @@ class getController extends AdminController
     public function getirTransferYonetimi()
     {
         return view('transferler', [
-            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id')->get(),
+            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'created_at')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'created_at')->get(),
         ]);
     }
 

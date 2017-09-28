@@ -90,7 +90,7 @@
                                         {{ $transfer->birim->ad }}
                                     </td>
                                     <td>
-                                        {{ $transfer->updated_at }}
+                                        {{ $transfer->created_at }}
                                     </td>
                                     <td>
                                         <div class="row col-md-12">
