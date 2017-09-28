@@ -28,19 +28,16 @@ class CreateUsersTable extends Migration
 
             $table->foreign('yetki_id')
                 ->references('id')
-                ->on('yetkiler')
-                ->onDelete('cascade');
+                ->on('yetkiler');
 
             $table->foreign('birim_id')
                 ->references('id')
-                ->on('birim')
-                ->onDelete('cascade');
+                ->on('birim');
 
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
         });
     }
 

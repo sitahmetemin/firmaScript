@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Observers\FirmaObserver;
+use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Proje extends Model
@@ -19,6 +21,14 @@ class Proje extends Model
         'musteri_id' => 'integer',
         'firma_id' => 'integer',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new FirmaScope());
+        static::observe(FirmaObserver::class);
+    }
 
     public function firma() {
         return $this->belongsTo(Firma::class, 'firma_id', 'id');

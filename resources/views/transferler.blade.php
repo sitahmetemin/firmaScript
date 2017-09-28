@@ -16,7 +16,7 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-arrow-circle-down font-green"></i>
-                        <span class="caption-subject font-green sbold uppercase">Onaylanan Talepler</span>
+                        <span class="caption-subject font-green sbold uppercase">TRANSFER HAREKETLERİ</span>
                     </div>
                     <div class="actions">
                         <div class="btn-group">
@@ -61,55 +61,41 @@
                             <thead>
                             <tr>
                                 <th> #</th>
-                                {{--<th> URUN(ADET)[BİRİM]</th>--}}
-                                <th> AÇIKLAMA</th>
-                                <th> NEREDEN <i class="fa fa-arrow-right"></i> NEREYE</th>
-                                <th> TALEP EDEN ÇALIŞAN</th>
-                                <th> TARİHİ</th>
+                                <th> REFERANS TİPİ</th>
+                                <th> HARAKET YÖNÜ</th>
+                                <th> BİRİM</th>
+                                <th> TALEP TARİHİ</th>
                                 <th> İŞLEMLER</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($cekilenTalep as $talep)
+                            @foreach($cekilenTransferler as $transfer)
                                 <tr>
-                                    <td> {{ $talep->id }}</td>
-                                    <td> {{ $talep->aciklama }}</td>
+                                    <td> {{ $transfer->referans_id }}</td>
                                     <td>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-sm-12 text-center">
-                                                {{ $talep->birim->ad }} - <b>{{ $talep->birim->birimTuru->ad }}</b>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-sm-12 text-center">
-                                                <i class="fa fa-arrow-down"></i>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-sm-12 text-center">
-                                                {{$talep->calisanBirim->ad }} - <b>{{ $talep->calisanBirim->birimTuru->ad }} </b>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @if(empty($talep->calisan->name) || empty($talep->calisanBirim->ad))
-                                            -
+                                        @if($transfer->referans_tipi == 0)
+                                            <label class="label label-primary">talep</label>
                                         @else
-                                            {{ $talep->calisan->name }} <i class="fa fa-arrows-h"></i> {{ $talep->calisanBirim->ad }}
+                                            <label class="label label-warning">proje</label>
                                         @endif
                                     </td>
-                                    <td> {{ substr($talep->updated_at, 0, 16) }}</td>
+                                    <td>
+                                        @if($transfer->hareket_yonu == 0)
+                                            <label class="label label-primary">Çıkış</label>
+                                        @else
+                                            <label class="label label-warning">Giriş</label>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $transfer->birim->ad }}
+                                    </td>
+                                    <td>
+                                        {{ $transfer->updated_at }}
+                                    </td>
                                     <td>
                                         <div class="row col-md-12">
                                             <div class="col-md-3">
-                                                <a href="/talepler/detay-talep/{{ $talep->id }}" title="Detaylar" class="btn btn-warning btn-sm"><i class="fa fa-search"></i></a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="/onaylanan-talepler/sil-talep/{{ $talep->id }}" title="Sil" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="/onaylanan-talepler/cikis-talep/{{ $talep->id }}" title="Yola Çıktı" class="btn btn-info btn-sm"><i class="fa fa-truck"></i> &nbsp; Yola
-                                                    Çıktı</a>
+                                                <a href="/talepler/detay-talep/{{ $transfer->referans_id }}" title="Detaylar" class="btn btn-default btn-sm"><i class="fa fa-search"></i></a>
                                             </div>
                                         </div>
                                     </td>
@@ -117,12 +103,14 @@
                             @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
             <!-- End: life time stats -->
         </div>
     </div>
+
 @endsection
 @section('css')
     <!-- BEGIN PAGE LEVEL PLUGINS -->

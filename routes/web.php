@@ -21,6 +21,8 @@ Route::get('/talepler/detay-talep/{id}','getController@getirTalepDetay');
 Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
 Route::get('/hareketler','getController@getirHareketler');
 Route::get('/raporlar','getController@getirRaporlar');
+Route::get('/transferler','getController@getirTransferYonetimi');
+Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
 //----------------------------------------------------------------Listeleme Sayfaları BİTİŞ
 
 //----------------------------------------------------------------Ekleme Sayfaları Getir Başlangıç
@@ -68,6 +70,8 @@ Route::get('/talepler/guncelle-talep/{id}','getController@guncelleTalep');
 Route::get('/ekle-birim-turu/guncelle-birim-turu/{id}','getController@guncelleBirimTuru');
 Route::get('/ekle-urun-kategori/guncelle-urun-kategori/{id}','getController@guncelleUrunKategori');
 Route::get('/ekle-urun-birim/guncelle-urun-birim/{id}','getController@guncelleUrunBirim');
+Route::get('/onaylanan-talepler/cikis-talep/{id}','getController@talepCikis');
+Route::get('/talepler/detay-talep/geldi/{id}','getController@talepGiris');
 //----------------------------------------------------------------------Güncelleme Sayfaları Getir BİTİŞ
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Post

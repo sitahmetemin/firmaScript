@@ -22,7 +22,7 @@ class Talep extends Model
     ];
 
     protected $casts = [
-        'onay' => 'boolean',
+        'onay' => 'integer',
         'aciklama' => 'string',
         'referans_tipi' => 'string',
         'birim_id' => 'integer',

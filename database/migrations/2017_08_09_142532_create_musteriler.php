@@ -26,13 +26,11 @@ class CreateMusteriler extends Migration
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
 
             $table->foreign('yetkili_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
         });
     }
 

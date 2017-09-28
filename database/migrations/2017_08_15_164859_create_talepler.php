@@ -15,7 +15,7 @@ class CreateTalepler extends Migration
     {
         Schema::create('talepler', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('onay');
+            $table->integer('onay');
             $table->string('aciklama');
             $table->string('referans_tipi');
             $table->integer('birim_id')->unsigned();

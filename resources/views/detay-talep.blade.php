@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 
-    <div  class="col-md-12">
+    <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-body">
                 <ul class="nav nav-tabs">
@@ -13,15 +13,29 @@
                     <div class="tab-pane fade active in" id="tab_1_1">
                         <div class="col-md-12">
                             <strong>Açıklama:</strong>
-                            <span>{{ $cekilenTalep->aciklama }}</span>
+                            <span>
+                                @if(empty($cekilenTalep->aciklama))
+                                    -
+                                @else
+                                    {{ $cekilenTalep->aciklama }}
+                                @endif
+                            </span>
                         </div>
                         <div class="col-md-12">
                             <strong>Onay:</strong>
                             <span>
-                                @if( $cekilenTalep->onay == true )
-                                    <label class="label label-success">Onaylandı</label>
+                                @if(!empty($cekilenTalep->onay))
+                                    @if( $cekilenTalep->onay == 0 )
+                                        <label class="label label-danger">Onay Bekliyor</label>
+                                    @elseif( $cekilenTalep->onay == 1 )
+                                        <label class="label label-success">Onaylandı</label>
+                                    @elseif( $cekilenTalep->onay == 2 )
+                                        <label style="color: black" class="label label-warning"><i class="fa fa-truck"></i> &nbsp;Yolda</label>
+                                    @elseif( $cekilenTalep->onay == 3 )
+                                        <label class="label label-success"><i class="fa fa-check"></i> &nbsp;Tamamlandı</label>
+                                    @endif
                                 @else
-                                    <label class="label label-primary">Onay Bekliyor</label>
+                                    -
                                 @endif
                             </span>
                         </div>
@@ -43,7 +57,7 @@
                         </div>
                         <div class="col-md-12">
                             <hr>
-                            <strong>Talepte Eden Çalışan Bilgileri:</strong>
+                            <strong>Talep Eden Çalışan Bilgileri:</strong>
                             <p>
                                 <b>Ad ve Soyad:</b>
                                 <span>{{ $cekilenTalep->calisan->name }} {{ $cekilenTalep->calisan->lastname }}</span>
@@ -78,8 +92,12 @@
                                 </div>
                                 <hr class="col-xs-12">
                             @endforeach
-
                         </div>
+                        @if($cekilenTalep->onay == 2 && \Illuminate\Support\Facades\Auth::user()->birim_id == $cekilenTalep->calisanBirim->id )
+                            <div>
+                                <a class="btn btn-primary" href="/talepler/detay-talep/geldi/{{ $cekilenTalep->id }}"><i class="fa fa-check"></i> &nbsp;Geldi</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="clearfix margin-bottom-20"></div>

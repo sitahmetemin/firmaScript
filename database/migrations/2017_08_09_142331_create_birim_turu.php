@@ -21,8 +21,7 @@ class CreateBirimTuru extends Migration
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
         });
     }
 

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Observers\FirmaObserver;
+use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Hareket extends Model
@@ -28,5 +30,19 @@ class Hareket extends Model
         'birim_id' => 'integer',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::addGlobalScope(new FirmaScope());
+        static::observe(FirmaObserver::class);
+    }
+
+    public function urun(){
+        return $this->belongsTo(Urun::class,'urun_id','id');
+    }
+
+    public function birim(){
+        return $this->belongsTo(Birim::class,'birim_id','id');
+    }
 }

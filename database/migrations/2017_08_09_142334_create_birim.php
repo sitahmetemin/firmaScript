@@ -24,13 +24,11 @@ class CreateBirim extends Migration
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
 
             $table->foreign('tur_id')
                 ->references('id')
-                ->on('birim_turu')
-                ->onDelete('cascade');
+                ->on('birim_turu');
         });
     }
 

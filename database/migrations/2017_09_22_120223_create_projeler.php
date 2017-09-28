@@ -22,13 +22,11 @@ class CreateProjeler extends Migration
 
             $table->foreign('musteri_id')
                 ->references('id')
-                ->on('musteriler')
-                ->onDelete('cascade');
+                ->on('musteriler');
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
         });
     }
 

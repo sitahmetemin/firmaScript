@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Observers\FirmaObserver;
 use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +32,7 @@ class Urun extends Model
         parent::boot();
 
         static::addGlobalScope(new FirmaScope());
+        static::observe(FirmaObserver::class);
     }
 
     public function urunKategorisi(){

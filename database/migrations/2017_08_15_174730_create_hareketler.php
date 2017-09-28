@@ -15,34 +15,34 @@ class CreateHareketler extends Migration
     {
         Schema::create('hareketler', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('referans_tipi');
-            $table->integer('referans_id')->unsigned()->nullable();
+            $table->enum('referans_tipi', [
+                'talep',
+                'proje'
+            ]);
+            $table->integer('referans_id');
             $table->integer('urun_id')->unsigned()->nullable();
             $table->integer('urun_birim_id')->unsigned()->nullable();
             $table->integer('urun_miktar');
             $table->boolean('hareket_yonu');
             $table->integer('birim_id')->unsigned()->nullable();
+            $table->integer('firma_id')->unsigned();
             $table->timestamps();
-
-            $table->foreign('referans_id')
-                ->references('id')
-                ->on('urunler')
-                ->onDelete('cascade');
 
             $table->foreign('urun_id')
                 ->references('id')
-                ->on('urunler')
-                ->onDelete('cascade');
+                ->on('urunler');
 
             $table->foreign('urun_birim_id')
                 ->references('id')
-                ->on('urun_birimleri')
-                ->onDelete('cascade');
+                ->on('urun_birimleri');
 
             $table->foreign('birim_id')
                 ->references('id')
-                ->on('birimler')
-                ->onDelete('cascade');
+                ->on('birim');
+
+            $table->foreign('firma_id')
+                ->references('id')
+                ->on('firmalar');
         });
     }
 

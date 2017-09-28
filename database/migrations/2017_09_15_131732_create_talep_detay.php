@@ -24,23 +24,19 @@ class CreateTalepDetay extends Migration
 
             $table->foreign('talep_id')
                 ->references('id')
-                ->on('talepler')
-                ->onDelete('cascade');
+                ->on('talepler');
 
             $table->foreign('urun_id')
                 ->references('id')
-                ->on('urunler')
-                ->onDelete('cascade');
+                ->on('urunler');
 
             $table->foreign('urun_birim_id')
                 ->references('id')
-                ->on('urun_birimleri')
-                ->onDelete('cascade');
+                ->on('urun_birimleri');
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
         });
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Birim;
 use App\BirimTuru;
 use App\Firma;
+use App\Hareket;
 use App\Musteri;
 use App\Proje;
 use App\Talep;
@@ -89,12 +90,12 @@ class getController extends AdminController
     {
         return view('talepler', [
             'cekilenTalepler' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay',0)->get(),
-            'cekilenUrunler' => Urun::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
     }
 
     public function getirTalepDetay($id)
     {
+//        return Talep::find($id)->load('talepDetaylari');
         return view('detay-talep', [
             'cekilenTalep' => Talep::find($id),
             'cekilenTalepDetay' => TalepDetay::where('talep_id', $id)->get(),
@@ -121,6 +122,12 @@ class getController extends AdminController
         ]);
     }
 
+    public function getirTransferYonetimi()
+    {
+        return view('transferler', [
+            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id')->get(),
+        ]);
+    }
 
     //------------------------------------------------------------Listeleme Sayfaları BİTİŞ
 
@@ -353,8 +360,80 @@ class getController extends AdminController
             $statu = 'İşlem Başarılı';
             return redirect('talepler')->with('status', $statu);
         }
-
     }
+
+    public function talepCikis($id) {
+        $onayla = Talep::find($id)->update(['onay' => 2]);
+        if ($onayla) {
+
+            $i = 0;
+
+            $talep = Talep::find($id);
+            foreach ($talep->talepDetaylari as $talepDetay) {
+
+                Hareket::create([
+                    'referans_tipi' => 'talep',
+                    'referans_id' => $talep->id,
+                    'urun_id' => $talepDetay->urun_id,
+                    'urun_birim_id' => $talepDetay->urun_birim_id,
+                    'urun_miktar' => $talepDetay->urun_adet,
+                    'hareket_yonu' => 0,
+                    'birim_id' =>$talep->birim_id,
+                ]);
+                $i++;
+            }
+
+            if ($i>0) {
+                $status = 'İşlem Başarılı';
+                return redirect('onaylanan-talepler')->with('status', $status);
+            }
+
+            $statu = 'İşlem Başarılı';
+            return redirect('onaylanan-talepler')->with('status', $statu);
+        }
+    }
+
+    public function talepGiris($id) {
+        $onayla = Talep::find($id)->update(['onay' => 3]);
+        if ($onayla) {
+
+            $i = 0;
+
+            $talep = Talep::find($id);
+            foreach ($talep->talepDetaylari as $talepDetay) {
+
+                Hareket::create([
+                    'referans_tipi' => 'talep',
+                    'referans_id' => $talep->id,
+                    'urun_id' => $talepDetay->urun_id,
+                    'urun_birim_id' => $talepDetay->urun_birim_id,
+                    'urun_miktar' => $talepDetay->urun_adet,
+                    'hareket_yonu' => 1,
+                    'birim_id' =>$talep->birim_id,
+                ]);
+                $i++;
+            }
+
+            if ($i>0) {
+                $status = 'İşlem Başarılı';
+                return redirect('transferler')->with('status', $status);
+            }
+
+            $statu = 'İşlem Başarılı';
+            return redirect('transferler')->with('status', $statu);
+        }
+    }
+
+
+//    public function talepGiris($id) {
+//        $onayla = Talep::find($id)->update(['onay' => 2]);
+//        if ($onayla) {
+//
+//            $statu = 'İşlem Başarılı';
+//            return redirect('onaylanan-talepler')->with('status', $statu);
+//        }
+//    }
+
     //-----------------------------------------------------------------------Talep Onaylama BİTİŞ
 
 

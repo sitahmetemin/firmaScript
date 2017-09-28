@@ -27,18 +27,15 @@ class CreateUrunler extends Migration
 
             $table->foreign('birim_id')
                 ->references('id')
-                ->on('urun_birimleri')
-                ->onDelete('cascade');
+                ->on('urun_birimleri');
 
             $table->foreign('kategori_id')
                 ->references('id')
-                ->on('urun_kategorileri')
-                ->onDelete('cascade');
+                ->on('urun_kategorileri');
 
             $table->foreign('firma_id')
                 ->references('id')
-                ->on('firmalar')
-                ->onDelete('cascade');
+                ->on('firmalar');
         });
     }
 
