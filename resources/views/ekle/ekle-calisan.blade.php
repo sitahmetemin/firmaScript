@@ -70,6 +70,66 @@
                                     <span class="help-block"> Çalışan Hangi Birimde Çalıştığını </span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Çalışan Yetki Grubu</label>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <select name="yetki" id="yetkiControl" class="form-control select2">
+                                                    <optgroup label="Birimler">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin')
+                                                            <option value="superAdmin">Süper Admin</option>
+                                                        @endif
+                                                        <option value="admin">Yönetici</option>
+                                                        <option value="personel">Personel</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="help-block"> Çalışan Hangi Birimde Çalıştığını </span>
+                                </div>
+                            </div>
+                            <div id="yetkiKutusu" class="form-group">
+                                <label class="control-label col-md-3">Çalışan Yetki Grubu</label>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
+                                            <input name="birim"  type="checkbox" class="make-switch" >
+                                            <span class="help-block">Birim</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="birimTuru" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Birim Türü</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="urun" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Ürün</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="urunBirimi" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Ürün Birim</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="urunKategorisi" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Ürün Kategori</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="talep" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Talep</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="musteri" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Müşteri</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="proje" type="checkbox" class="make-switch" >
+                                            <span class="help-block">Proje</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
@@ -102,4 +162,20 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="/backend/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
+
+    <script>
+        $(function () {
+            $('#yetkiKutusu').slideUp();
+
+            $('#yetkiControl').change(function () {
+                var yetki = $('#yetkiControl option:selected').val();
+                if (yetki == 'personel') {
+                    $('#yetkiKutusu').slideDown(500);
+                }
+                else {
+                    $('#yetkiKutusu').slideUp(500);
+                }
+            });
+        });
+    </script>
 @endsection

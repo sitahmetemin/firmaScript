@@ -20,6 +20,10 @@ class PostController extends AdminController
     //-----------------------------------------------------------------------Ekleme İşlemleri
     public function postFirmaEkle(Request $request)
     {
+//        dd(Gate::allows('create', Firma::class));
+
+        $this->authorize('create', Firma::class);
+
         $add = Firma::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -33,6 +37,8 @@ class PostController extends AdminController
     public function postUrunEkle(Request $request)
     {
 
+        $this->authorize('create', Urun::class);
+
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = Urun::create($request->all());
         if ($add) {
@@ -45,6 +51,7 @@ class PostController extends AdminController
 
     public function postBirimEkle(Request $request)
     {
+        $this->authorize('create', Birim::class);
 
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = Birim::create($request->all());
@@ -58,6 +65,7 @@ class PostController extends AdminController
 
     public function postBirimTuruEkle(Request $request)
     {
+        $this->authorize('create', BirimTuru::class);
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = BirimTuru::create($request->all());
         if ($add) {
@@ -71,6 +79,7 @@ class PostController extends AdminController
 
     public function postProjeEkle(Request $request)
     {
+        $this->authorize('create', Proje::class);
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = Proje::create($request->all());
         if ($add) {
@@ -84,6 +93,8 @@ class PostController extends AdminController
 
     public function postUrunKategoriEkle(Request $request)
     {
+        $this->authorize('create', UrunKategori::class);
+
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = UrunKategori::create($request->all());
         if ($add) {
@@ -97,6 +108,8 @@ class PostController extends AdminController
 
     public function postUrunBirimleriEkle(Request $request)
     {
+        $this->authorize('create', UrunBirim::class);
+
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = UrunBirim::create($request->all());
         if ($add) {
@@ -110,6 +123,7 @@ class PostController extends AdminController
 
     public function postMusteriEkle(Request $request)
     {
+        $this->authorize('create', Musteri::class);
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = Musteri::create($request->all());
         if ($add) {
@@ -123,12 +137,18 @@ class PostController extends AdminController
 
     public function postCalisanEkle(Request $request)
     {
+        $this->authorize('create', User::class);
+
         $pass = bcrypt($request->password);
         $request->except('password');
         $request->merge(['password' => $pass]);
         $request->merge(['firma_id' => Auth::user()->firma_id]);
-        $add = User::create($request->all());
+        $add = User::create($request->only('name', 'lastname', 'email', 'password', 'tc_no', 'birim_id', 'yetki', 'firma_id'));
         if ($add) {
+
+            if ($request->yetki == 'personel') {
+                $add->yetkiler()->create($request->only('birim', 'birimTuru', 'hareket', 'musteri', 'proje', 'talep', 'urun', 'urunBirimi', 'urunKategorisi'));
+            }
             $status = 'İşlem Başarılı';
             return redirect('calisanlar')->with('status', $status);
         }
@@ -139,6 +159,8 @@ class PostController extends AdminController
 
     public function postTalepEkle(Request $request)
     {
+        $this->authorize('create', Talep::class);
+
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $request->merge(['talep_eden_birim_id' => Auth::user()->birim_id]);
         $request->merge(['talep_eden_calisan_id' => Auth::user()->id]);
@@ -161,6 +183,8 @@ class PostController extends AdminController
 
     public function postGuncelleBirim(Request $request, $id)
     {
+        $this->authorize('update', Birim::class);
+
         $update = Birim::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -173,6 +197,8 @@ class PostController extends AdminController
 
     public function postGuncelleBirimTuru(Request $request, $id)
     {
+        $this->authorize('update', BirimTuru::class);
+
         $update = BirimTuru::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -185,6 +211,8 @@ class PostController extends AdminController
 
     public function postGuncelleCalisan(Request $request, $id)
     {
+        $this->authorize('update', User::class);
+
         $update = User::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -197,6 +225,7 @@ class PostController extends AdminController
 
     public function postGuncelleFirma(Request $request, $id)
     {
+        $this->authorize('update', Firma::class);
         $update = Firma::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -209,6 +238,8 @@ class PostController extends AdminController
 
     public function postGuncelleMusteri(Request $request, $id)
     {
+        $this->authorize('update', Musteri::class);
+
         $update = Musteri::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -221,6 +252,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrun(Request $request, $id)
     {
+        $this->authorize('update', Urun::class);
+
         $update = Urun::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -233,6 +266,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrunKategori(Request $request, $id)
     {
+        $this->authorize('update', UrunKategori::class);
+
         $update = UrunKategori::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -245,6 +280,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrunBirim(Request $request, $id)
     {
+        $this->authorize('update', UrunBirim::class);
+
         $update = UrunBirim::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';

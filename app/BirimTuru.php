@@ -37,4 +37,6 @@ class BirimTuru extends Model
     {
         return $this->hasMany(User::class, 'id', 'id');
     }
+
+
 }

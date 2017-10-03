@@ -21,7 +21,7 @@ class Hareket extends Model
     ];
 
     protected $casts = [
-        'referans_tipi' => 'integer',
+        'referans_tipi' => 'string',
         'referans_id' => 'integer',
         'urun_id' => 'integer',
         'urun_birim_id' => 'integer',

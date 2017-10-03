@@ -19,11 +19,11 @@
                         <span class="caption-subject font-green sbold uppercase">Firmalar</span>
                     </div>
                     <div class="actions">
-                        <div class="btn-group btn-group-devided">
-                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
-                                <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
-                            </label>
-                        </div>
+                            <div class="btn-group btn-group-devided">
+                                <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
+                                    <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
+                                </label>
+                            </div>
                         <div class="btn-group">
                             <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-share"></i>

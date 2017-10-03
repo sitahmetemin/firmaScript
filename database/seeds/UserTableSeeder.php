@@ -17,6 +17,7 @@ class UserTableSeeder extends Seeder
             'tc_no' => '17180939450',
             'email'=>'sitahmetemin@hotmail.com',
             'password'=>bcrypt('123654'),
+            'yetki'=>'superAdmin',
             ]);
     }
 }

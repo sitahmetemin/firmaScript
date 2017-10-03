@@ -73,11 +73,13 @@
                                 <tr>
                                     <td> {{ $transfer->referans_id }}</td>
                                     <td>
-                                        @if($transfer->referans_tipi == 0)
-                                            <label class="label label-primary">talep</label>
+                                        @if($transfer->referans_tipi == 'talep' )
+                                            <label class="label label-primary">Talep</label>
                                         @else
-                                            <label class="label label-warning">proje</label>
+                                            <label class="label label-warning">Proje</label>
                                         @endif
+
+
                                     </td>
                                     <td>
                                         @if($transfer->hareket_yonu == 0)

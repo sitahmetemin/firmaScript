@@ -21,8 +21,8 @@ Route::get('/talepler/detay-talep/{id}','getController@getirTalepDetay');
 Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
 Route::get('/hareketler','getController@getirHareketler');
 Route::get('/raporlar','getController@getirRaporlar');
-Route::get('/transferler','getController@getirTransferYonetimi');
 Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
+Route::get('/transferler','getController@getirTransferYonetimi');
 //----------------------------------------------------------------Listeleme Sayfaları BİTİŞ
 
 //----------------------------------------------------------------Ekleme Sayfaları Getir Başlangıç

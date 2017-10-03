@@ -15,8 +15,21 @@ class CreateYetkiler extends Migration
     {
         Schema::create('yetkiler', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('yetki');
+            $table->integer('user_id')->unsigned();
+            $table->boolean('birim');
+            $table->boolean('birimTuru');
+            $table->boolean('hareket');
+            $table->boolean('musteri');
+            $table->boolean('proje');
+            $table->boolean('talep');
+            $table->boolean('urun');
+            $table->boolean('urunBirimi');
+            $table->boolean('urunKategorisi');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

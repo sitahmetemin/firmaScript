@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
-Version: 4.7.5
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <!--[if IE 8]>
 <html lang="tr" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]>
@@ -112,7 +99,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="/backend/assets/layouts/layout/img/avatar3_small.jpg"/>
                             <span class="username username-hide-on-mobile">
-                                {{ \Illuminate\Support\Facades\Auth::user()->name . ' - '/* .  \Illuminate\Support\Facades\Auth::user()->birim->ad . ' - ' . \Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad */}}
+                                {{ \Illuminate\Support\Facades\Auth::user()->name . ' - ' }}
+                                @if(isset(\Illuminate\Support\Facades\Auth::user()->birim->ad) &&  isset(\Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad))
+                                    {{  \Illuminate\Support\Facades\Auth::user()->birim->ad . ' - ' . \Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad  }}
+                                @else
+                                    -
+                                @endif
                             </span>
                             <i class="fa fa-angle-down"></i>
                         </a>

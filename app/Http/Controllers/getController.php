@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Auth;
 
 class getController extends AdminController
 {
+
+    public function getirLogin()
+    {
+        return view('login');
+    }
+
     //------------------------------------------------------------Listeleme Sayfaları
     public function getirHome()
     {
@@ -34,18 +40,16 @@ class getController extends AdminController
 
     public function getirFirmalar()
     {
+        $this->authorize('view', Firma::class);
         return view('firmalar', [
             'cekilenFirmalar' => Firma::all(),
         ]);
     }
 
-    public function getirLogin()
-    {
-        return view('login');
-    }
-
     public function getirBirimler()
     {
+        $this->authorize('view', Birim::class);
+
         return view('birimler', [
             'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -53,6 +57,8 @@ class getController extends AdminController
 
     public function getirEkleBirimTuru()
     {
+        $this->authorize('view', BirimTuru::class);
+
         return view('ekle.ekle-birim-turu', [
             'cekilenBirimTurleri' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -60,6 +66,7 @@ class getController extends AdminController
 
     public function getirCalisanlar()
     {
+        $this->authorize('view', User::class);
         return view('calisanlar', [
             'cekilenCalisanlar' => User::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -67,6 +74,7 @@ class getController extends AdminController
 
     public function getirMusteriler()
     {
+        $this->authorize('view', Musteri::class);
         return view('musteriler', [
             'cekilenMusteriler' => Musteri::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -74,6 +82,8 @@ class getController extends AdminController
 
     public function getirUrunler()
     {
+        $this->authorize('view', Urun::class);
+
         return view('urunler', [
             'cekilenUrunler' => Urun::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -81,6 +91,7 @@ class getController extends AdminController
 
     public function getirUrunBirimleri()
     {
+        $this->authorize('view', UrunBirim::class);
         return view('ekle.ekle-urun-birimleri', [
             'cekilenUrunBirimleri' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -88,6 +99,7 @@ class getController extends AdminController
 
     public function getirTalepler()
     {
+        $this->authorize('view', Talep::class);
         return view('talepler', [
             'cekilenTalepler' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay',0)->get(),
         ]);
@@ -95,7 +107,6 @@ class getController extends AdminController
 
     public function getirTalepDetay($id)
     {
-//        return Talep::find($id)->load('talepDetaylari');
         return view('detay-talep', [
             'cekilenTalep' => Talep::find($id),
             'cekilenTalepDetay' => TalepDetay::where('talep_id', $id)->get(),
@@ -104,6 +115,7 @@ class getController extends AdminController
 
     public function getirOnaylananTalepler()
     {
+        $this->authorize('view', Talep::class);
         return view('onaylanan-talepler', [
             'cekilenTalep' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay', 1)->get(),
         ]);
@@ -116,6 +128,7 @@ class getController extends AdminController
 
     public function getirEkleProje()
     {
+        $this->authorize('view', Proje::class);
         return view('ekle.ekle-proje', [
             'cekilenProjeler' => Proje::where('firma_id', Auth::user()->firma_id)->get(),
             'cekilenMusteriler' => Musteri::where('firma_id', Auth::user()->firma_id)->get(),
@@ -124,17 +137,20 @@ class getController extends AdminController
 
     public function getirTransferYonetimi()
     {
+        $this->authorize('view', Hareket::class);
+
         return view('transferler', [
-            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'created_at')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'created_at')->get(),
+            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->get(),
         ]);
     }
 
     //------------------------------------------------------------Listeleme Sayfaları BİTİŞ
 
 
-    //-------------------------------------------------------Ekleme sayfaları
+    //-------------------------------------------------------------Ekleme sayfaları
     public function getirEkleBirim()
     {
+        $this->authorize('view', Birim::class);
         return view('ekle.ekle-birim', [
             'cekilenTurler' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -142,11 +158,13 @@ class getController extends AdminController
 
     public function getirEkleFirma()
     {
+        $this->authorize('view', Firma::class);
         return view('ekle.ekle-firma');
     }
 
     public function getirEkleCalisan()
     {
+        $this->authorize('view', User::class);
         return view('ekle.ekle-calisan', [
             'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
             'cekilenBirimTurleri' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
@@ -155,6 +173,8 @@ class getController extends AdminController
 
     public function getirEkleMusteri()
     {
+        $this->authorize('view', Musteri::class);
+
         return view('ekle.ekle-musteri',[
             'cekilenYetkililer' => User::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -162,6 +182,7 @@ class getController extends AdminController
 
     public function getirEkleUrun()
     {
+        $this->authorize('view', Urun::class);
         return view('ekle.ekle-urun', [
             'kategoriler' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
             'cekilenBirimler' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
@@ -170,6 +191,7 @@ class getController extends AdminController
 
     public function getirEkleUrunKategori()
     {
+        $this->authorize('view', UrunKategori::class);
         return view('ekle.ekle-urun-kategori', [
             'urunKategorileri' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
         ]);
@@ -177,6 +199,7 @@ class getController extends AdminController
 
     public function getirEkleTalep()
     {
+        $this->authorize('view', Talep::class);
         return view('ekle.ekle-talep', [
             'cekilenUrunBirimleri' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
             'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
@@ -194,11 +217,12 @@ class getController extends AdminController
         return response()->json($birimler);
     }
 
-    //-------------------------------------------------------Ekleme sayfaları BİTİŞ
+    //-----------------------------------------------------------------Ekleme sayfaları BİTİŞ
 
     //-----------------------------------------------------------------Silme Metodları
     public function silCalisan($id)
     {
+        $this->authorize('delete', User::class);
         $delete = User::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -207,6 +231,7 @@ class getController extends AdminController
 
     public function silBirim($id)
     {
+        $this->authorize('delete', Birim::class);
         $delete = Birim::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -215,6 +240,7 @@ class getController extends AdminController
 
     public function silFirma($id)
     {
+        $this->authorize('delete', Firma::class);
         $delete = Firma::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -223,6 +249,7 @@ class getController extends AdminController
 
     public function silMusteri($id)
     {
+        $this->authorize('delete', Musteri::class);
         $delete = Musteri::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -231,6 +258,7 @@ class getController extends AdminController
 
     public function silUrun($id)
     {
+        $this->authorize('delete', Urun::class);
         $delete = Urun::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -239,6 +267,7 @@ class getController extends AdminController
 
     public function silUrunKategori($id)
     {
+        $this->authorize('delete', UrunKategori::class);
         $delete = UrunKategori::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -247,6 +276,7 @@ class getController extends AdminController
 
     public function silUrunBirim($id)
     {
+        $this->authorize('delete', UrunBirim::class);
         $delete = UrunBirim::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -255,6 +285,7 @@ class getController extends AdminController
 
     public function silBirimTuru($id)
     {
+        $this->authorize('delete', BirimTuru::class);
         $delete = BirimTuru::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -263,6 +294,7 @@ class getController extends AdminController
 
     public function silTalep($id)
     {
+        $this->authorize('delete', Talep::class);
         $delete = Talep::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
@@ -271,17 +303,19 @@ class getController extends AdminController
 
     public function silOnaylananTalep($id)
     {
+        $this->authorize('delete', Talep::class);
         $delete = Talep::find($id);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('onaylanan-talepler')->with('status', $statu);
     }
 
-    //-----------------------------------------------------------------Silme Metodları BİTİŞ
+    //-----------------------------------------------------------------------Silme Metodları BİTİŞ
 
     //-----------------------------------------------------------------------Güncelle Sayfaları
     public function guncelleBirim($id)
     {
+        $this->authorize('view', Birim::class);
         return view('guncelle.guncelle-birim', [
             'bulunanBirim' => Birim::find($id),
             'cekilenBirimTuru' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
@@ -290,6 +324,7 @@ class getController extends AdminController
 
     public function guncelleBirimTuru($id)
     {
+        $this->authorize('view', BirimTuru::class);
         return view('guncelle.guncelle-birim-turu', [
             'bulunanBirimTuru' => BirimTuru::find($id),
         ]);
@@ -297,6 +332,7 @@ class getController extends AdminController
 
     public function guncelleCalisan(User $user)
     {
+        $this->authorize('view', User::class);
         return view('guncelle.guncelle-calisan', [
             'bulunanCalisan' => $user,
         ]);
@@ -304,6 +340,7 @@ class getController extends AdminController
 
     public function guncelleFirma($id)
     {
+        $this->authorize('view', Firma::class);
         return view('guncelle.guncelle-firma', [
             'bulunanFirma' => Firma::find($id),
         ]);
@@ -311,6 +348,7 @@ class getController extends AdminController
 
     public function guncelleMusteri($id)
     {
+        $this->authorize('view', Musteri::class);
         return view('guncelle.guncelle-musteri', [
             'bulunanMusteri' => Musteri::find($id),
             'cekilenYetkililer' => User::where('firma_id', Auth::user()->firma_id)->get(),
@@ -319,6 +357,7 @@ class getController extends AdminController
 
     public function guncelleUrun($id)
     {
+        $this->authorize('view', Urun::class);
         return view('guncelle.guncelle-urun', [
             'bulunanUrun' => Urun::find($id),
             'cekilenKategoriler' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
@@ -328,6 +367,7 @@ class getController extends AdminController
 
     public function guncelleUrunKategori($id)
     {
+        $this->authorize('view', UrunKategori::class);
         return view('guncelle.guncelle-urun-kategori', [
             'bulunanUrunKategori' => UrunKategori::find($id),
         ]);
@@ -335,6 +375,7 @@ class getController extends AdminController
 
     public function guncelleUrunBirim($id)
     {
+        $this->authorize('view', UrunBirim::class);
         return view('guncelle.guncelle-urun-birim', [
             'bulunanUrunBirim' => UrunBirim::find($id),
         ]);
@@ -342,6 +383,7 @@ class getController extends AdminController
 
     public function guncelleTalep($id)
     {
+        $this->authorize('view', Talep::class);
         return view('guncelle.guncelle-talep', [
             'bulunanTalep' => Talep::find($id),
             'bulunanTalepDetay' => TalepDetay::where('talep_id', $id)->get(),
