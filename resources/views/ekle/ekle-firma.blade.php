@@ -23,6 +23,34 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3">Telefon</label>
+                                <div class="col-md-4">
+                                    <input name="telefon" class="form-control" id="mask_date"  type="number" />
+                                    <span class="help-block"> Firmanın Telefon Numarasını Yazınız </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Fax</label>
+                                <div class="col-md-4">
+                                    <input name="fax" class="form-control" id="mask_date"  type="number" />
+                                    <span class="help-block"> Firmanın Fax Numarasını Yazınız </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">E-mail</label>
+                                <div class="col-md-4">
+                                    <input name="email" class="form-control" id="mask_date"  type="email" />
+                                    <span class="help-block"> Firmanın e-mail adresinin yazınız Yazınız </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Vergi No</label>
+                                <div class="col-md-4">
+                                    <input name="vergi_no" class="form-control" id="mask_date" required type="number" />
+                                    <span class="help-block"> Firmanın Verigi Numarasını Yazınız </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Durum</label>
                                 <div class="col-md-4">
                                     <div class="form-group">

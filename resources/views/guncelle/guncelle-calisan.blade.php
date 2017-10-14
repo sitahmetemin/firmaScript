@@ -51,6 +51,56 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Çalışan Birimi</label>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <select name="birim_id" id="single" class="form-control select2">
+                                                <option></option>
+                                                <optgroup label="Birimler">
+                                                    @foreach($cekilenBirimler as $birim)
+                                                        @if($birim->id == $bulunanCalisan->birim_id )
+                                                            <option selected value="{{ $birim->id }}"> {{ $birim->ad . ' => ' . $birim->birimTuru->ad}}</option>
+                                                        @else
+                                                            <option value="{{ $birim->id }}"> {{ $birim->ad . ' => ' . $birim->birimTuru->ad}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="help-block"> Çalışan Hangi Birimde Çalıştığını </span>
+                            </div>
+                        </div>
+                        @if( \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' )
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Çalışan Firması</label>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <select name="firma_id" id="single" class="form-control select2">
+                                                    <option></option>
+                                                    <optgroup label="Birimler">
+                                                        @foreach($cekilenFirmalar as $firma)
+                                                            @if($firma->id == $bulunanCalisan->firma_id)
+                                                                <option selected value="{{ $firma->id }}"> {{ $firma->ad}}</option>
+                                                            @else
+                                                                <option value="{{ $firma->id }}"> {{ $firma->ad}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="help-block"> Çalışanın Hangi Firmada Çalıştığını Seçiniz </span>
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">

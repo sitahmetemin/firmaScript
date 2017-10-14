@@ -16,6 +16,10 @@ class CreateFirmalar extends Migration
         Schema::create('firmalar', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ad');
+            $table->string('telefon');
+            $table->string('fax');
+            $table->string('email');
+            $table->string('vergi_no');
             $table->boolean('durum');
             $table->timestamps();
         });

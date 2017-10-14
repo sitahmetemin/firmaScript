@@ -30,7 +30,7 @@ class FirmaPolicy
 
     public function view(User $user)
     {
-        return ($user->yetki === 'superAdmin' );
+        return ($user->yetki === 'superAdmin' || $user->yetki === 'admin' );
     }
 
     public function create(User $user)

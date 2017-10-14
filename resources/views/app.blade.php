@@ -97,13 +97,15 @@
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="/backend/assets/layouts/layout/img/avatar3_small.jpg"/>
+                            <img alt="" class="img-circle" src="/backend/assets/layouts/layout/img/avatar.png"/>
                             <span class="username username-hide-on-mobile">
-                                {{ \Illuminate\Support\Facades\Auth::user()->name . ' - ' }}
+                                {{ \Illuminate\Support\Facades\Auth::user()->name . ' ' . \Illuminate\Support\Facades\Auth::user()->lastname  . ' - ' }}
                                 @if(isset(\Illuminate\Support\Facades\Auth::user()->birim->ad) &&  isset(\Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad))
-                                    {{  \Illuminate\Support\Facades\Auth::user()->birim->ad . ' - ' . \Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad  }}
-                                @else
+                                    {{  \Illuminate\Support\Facades\Auth::user()->birim->ad }}
                                     -
+                                    {{ \Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad }}
+                                @else
+                                    <i class="fa fa-user-secret"></i>
                                 @endif
                             </span>
                             <i class="fa fa-angle-down"></i>
@@ -171,6 +173,7 @@
                         </form>
                         <!-- END RESPONSIVE QUICK SEARCH FORM -->
                     </li>
+
                     <li class="nav-item start ">
                         <a href="/" class="nav-link nav-toggle">
                             <i class="icon-home"></i>
@@ -181,13 +184,15 @@
                     <li class="heading">
                         <h3 class="uppercase">Sistem</h3>
                     </li>
-                    <li class="nav-item start ">
-                        <a href="/firmalar" class="nav-link nav-toggle">
-                            <i class="fa fa-university"></i>
-                            <span class="title">Firmalar</span>
-                            <span class="arrow"></span>
-                        </a>
-                    </li>
+                    @if( \Illuminate\Support\Facades\Auth::user()->yetki == 'admin' || 'superAdmin')
+                        <li class="nav-item start ">
+                            <a href="/firmalar" class="nav-link nav-toggle">
+                                <i class="fa fa-university"></i>
+                                <span class="title">Firma</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item  active open">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-table"></i>
@@ -343,7 +348,12 @@
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="page-footer">
-        <div class="page-footer-inner"> 2017 &copy; BeeCorp Yazılım</div>
+        <div class="page-footer-inner">
+            2017 &copy; BeeCorp Yazılım -
+            @if(isset(\Illuminate\Support\Facades\Auth::user()->firma->ad))
+                {{ \Illuminate\Support\Facades\Auth::user()->firma->ad }}
+            @endif
+        </div>
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>
         </div>

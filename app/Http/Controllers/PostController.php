@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Birim;
 use App\BirimTuru;
 use App\Firma;
+use App\Hareket;
 use App\Musteri;
 use App\Proje;
 use App\Talep;
@@ -12,6 +13,7 @@ use App\Urun;
 use App\UrunBirim;
 use App\UrunKategori;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,6 @@ class PostController extends AdminController
 //        dd(Gate::allows('create', Firma::class));
 
         $this->authorize('create', Firma::class);
-
         $add = Firma::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -79,6 +80,7 @@ class PostController extends AdminController
 
     public function postProjeEkle(Request $request)
     {
+        Hareket::create($request->only());
         $this->authorize('create', Proje::class);
         $request->merge(['firma_id' => Auth::user()->firma_id]);
         $add = Proje::create($request->all());
@@ -142,7 +144,11 @@ class PostController extends AdminController
         $pass = bcrypt($request->password);
         $request->except('password');
         $request->merge(['password' => $pass]);
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+
+        if (Auth::user()->yetki != 'superAdmin') {
+            $request->merge(['firma_id' => Auth::user()->firma_id]);
+        }
+
         $add = User::create($request->only('name', 'lastname', 'email', 'password', 'tc_no', 'birim_id', 'yetki', 'firma_id'));
         if ($add) {
 
@@ -212,6 +218,10 @@ class PostController extends AdminController
     public function postGuncelleCalisan(Request $request, $id)
     {
         $this->authorize('update', User::class);
+
+        $pass = bcrypt($request->password);
+        $request->except('password');
+        $request->merge(['password' => $pass]);
 
         $update = User::find($id)->update($request->all());
         if ($update) {
@@ -297,7 +307,20 @@ class PostController extends AdminController
 //-----------------------------------------------------------------------------------------Raporlama
     public function raporla(Request $request)
     {
+        $hareketCek = Hareket::where('birim_id', $request->birim_id)
+            ->where('referans_tipi', $request->rapor_turu)
+            ->where('created_at', '>=', Carbon::createFromFormat('Y-m-d', $request->baslangicTarihi)->startOfDay()->toDateTimeString())
+            ->where('created_at', '<=', Carbon::createFromFormat('Y-m-d', $request->bitisTarihi)->endOfDay()->toDateTimeString())
+            ->get();
 
+        return view('raporlar', [
+            'cekilenHareketler' => $hareketCek,
+            'cekilenBirim' => Birim::all(),
+            'alinanBaslangic' => $request->baslangicTarihi,
+            'alinanBitis' => $request->bitisTarihi,
+            'alinanRaporTuru' => $request->rapor_turu,
+            'alinanBirim_id' => $request->birim_id,
+        ]);
     }
 
 }

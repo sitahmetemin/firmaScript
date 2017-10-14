@@ -30,21 +30,21 @@ class BirimPolicy
 
     public function view(User $user)
     {
-        return ($user->yetkiler->birim === true );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->birim === true );
     }
 
     public function create(User $user)
     {
-        return ($user->yetkiler->birim === true );
+        return ($user->yetkiler->birim === true || $user->yetki == 'admin' );
     }
 
     public function update(User $user, Birim $birim)
     {
-        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true );
+        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true || $user->yetki == 'admin' );
     }
 
     public function delete(User $user, Birim $birim)
     {
-        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true );
+        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true || $user->yetki == 'admin' );
     }
 }

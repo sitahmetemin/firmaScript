@@ -15,6 +15,7 @@ use App\UrunBirim;
 use App\UrunKategori;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class getController extends AdminController
 {
@@ -23,6 +24,16 @@ class getController extends AdminController
     {
         return view('login');
     }
+
+    //------------------------------------------------------------SuperAdmin
+    public function firmaIDGiy($id)
+    {
+        session()->forget('firma_id');
+        session()->put('firma_id', $id);
+        return session()->get('firma_id');
+        return redirect('/');
+    }
+    //------------------------------------------------------------SuperAdmin
 
     //------------------------------------------------------------Listeleme Sayfaları
     public function getirHome()
@@ -123,7 +134,9 @@ class getController extends AdminController
 
     public function getirRaporlar()
     {
-        return view('raporlar');
+        return view('raporlar', [
+            'cekilenBirim' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+        ]);
     }
 
     public function getirEkleProje()
@@ -168,6 +181,7 @@ class getController extends AdminController
         return view('ekle.ekle-calisan', [
             'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
             'cekilenBirimTurleri' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenFirmalar' => Firma::all(),
         ]);
     }
 
@@ -335,6 +349,8 @@ class getController extends AdminController
         $this->authorize('view', User::class);
         return view('guncelle.guncelle-calisan', [
             'bulunanCalisan' => $user,
+            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenFirmalar' => Firma::all(),
         ]);
     }
 
@@ -466,15 +482,6 @@ class getController extends AdminController
         }
     }
 
-
-//    public function talepGiris($id) {
-//        $onayla = Talep::find($id)->update(['onay' => 2]);
-//        if ($onayla) {
-//
-//            $statu = 'İşlem Başarılı';
-//            return redirect('onaylanan-talepler')->with('status', $statu);
-//        }
-//    }
 
     //-----------------------------------------------------------------------Talep Onaylama BİTİŞ
 

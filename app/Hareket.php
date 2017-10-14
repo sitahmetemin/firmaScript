@@ -45,4 +45,8 @@ class Hareket extends Model
     public function birim(){
         return $this->belongsTo(Birim::class,'birim_id','id');
     }
+
+    public function referans(){
+        return $this->hasOne(Birim::class,'id','referans_id');
+    }
 }

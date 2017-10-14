@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Input;
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------Get
 
+//----------------------------------------------------------------Super Admin
+Route::get('/firmalar/kimlik-firma/{id}', 'getController@firmaIDGiy');
+//----------------------------------------------------------------Super Admin
+
 //----------------------------------------------------------------Listeleme Sayfaları Başlangıç
 Route::get('/login','AdminController@getLogin')->name('login');
 Route::get('/logout','AdminController@logout')->name('logout');

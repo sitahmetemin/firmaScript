@@ -10,11 +10,19 @@ class Firma extends Model
 
     protected $fillable = [
         'ad',
+        'telefon',
+        'fax',
+        'email',
+        'vergi_no',
         'durum'
     ];
 
     protected $casts = [
         'ad' => 'string',
+        'telefon' => 'string',
+        'fax' => 'string',
+        'email' => 'string',
+        'vergi_no' => 'string',
         'durum' => 'boolean',
     ];
 }

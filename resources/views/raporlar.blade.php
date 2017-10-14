@@ -17,22 +17,52 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Raporunu Almak İstediğiniz Tarih Aralığını Seçin</label>
                                 <div class="col-md-3">
-                                    <input name="baslangicTarihi" id="baslangicTarihi" value="" class="col-md-12" type="date">
+                                    <input required name="baslangicTarihi" id="baslangicTarihi" value="{{ isset($alinanBaslangic) }}" class="col-md-12" type="date">
                                     <span class="help-block">Başlangıç Tarihi</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <input name="bitisTarihi" id="bitisTarihi" value="" class="col-md-12" type="date">
+                                    <input required name="bitisTarihi" id="bitisTarihi" value="{{ isset($alinanBitis) }}" class="col-md-12" type="date">
                                     <span class="help-block">Bitiş Tarihi</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Raporlar</label>
                                 <div class="col-md-6">
-                                    <select name="rapor_id" class="form-control select2">
+                                    <select name="rapor_turu" class="form-control select2">
                                         <option></option>
-                                        <option value="sdaf">denene</option>
+                                        @if(isset($alinanRaporTuru))
+                                            @if($alinanRaporTuru == 'talep')
+                                                <option value="proje">Proje</option>
+                                                <option selected value="talep">Talep</option>
+                                            @else
+                                                <option selected value="proje">Proje</option>
+                                                <option value="talep">Talep</option>
+                                            @endif
+                                        @else
+                                            <option value="proje">Proje</option>
+                                            <option value="talep">Talep</option>
+                                        @endif
                                     </select>
                                     <span class="help-block">Hangi Bölümden Rapor Almak İstediğinizi Seçin</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Birim</label>
+                                <div class="col-md-6">
+                                    <select name="birim_id" class="form-control select2">
+                                        <option></option>
+                                        <option value="tumu">Tümü</option>
+                                        @if(isset($cekilenBirim))
+                                            @foreach($cekilenBirim as $birim)
+                                                @if(isset($alinanBirim_id) == $birim->id)
+                                                    <option selected value="{{ $birim->id }}">{{ $birim->ad . ' - ' . $birim->birimTuru->ad }} </option>
+                                                @else
+                                                    <option value="{{ $birim->id }}">{{ $birim->ad . ' - ' . $birim->birimTuru->ad }} </option>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <span class="help-block">Listelemek istediğiniz birimi seçin</span>
                                 </div>
                             </div>
                         </div>
@@ -104,27 +134,31 @@
                             <thead>
                             <tr>
                                 <th> #</th>
-                                <th> İSİM</th>
-                                <th> AÇIKLAMA</th>
+                                <th> REFERANS TİPİ</th>
+                                <th> URUN</th>
+                                <th> URUN MİKTAR</th>
+                                <th> URUN BİRİMİ</th>
                                 <th> BİRİM</th>
-                                <th> KATEGORİ</th>
-                                <th> DURUM</th>
-                                <th> DÜZENLEME TARİHİ</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                {{--<td></td>--}}
-                                {{--<td></td>--}}
-                                {{--<td></td>--}}
-                                {{--<td></td>--}}
-                                {{--<td></td>--}}
-                                {{--<td>--}}
-                                    {{--<label class="label label-primary"><i class="fa fa-eye"></i>&nbsp; Aktif</label>--}}
-                                    {{--<label class="label label-danger"><i class="fa fa-eye-slash"></i> &nbsp; Pasif</label>--}}
-                                {{--</td>--}}
-                                {{--<td></td>--}}
-                            </tr>
+                            @if(isset($cekilenHareketler))
+                                @foreach($cekilenHareketler as $hareket)
+                                    <tr>
+                                        <td> {{ $hareket->id }}</td>
+                                        <td> {{ $hareket->referans_tipi }}</td>
+                                        <td> {{ $hareket->urun->ad }}</td>
+                                        <td> {{ $hareket->urun_miktar }}</td>
+                                        <td> {{ $hareket->urun->urunBirimi->ad }}</td>
+                                        @if($hareket->hareket_yonu == 0)
+                                            <td> {{ $hareket->referans->ad }} <i class="fa fa-arrow-right"></i> {{ $hareket->birim->ad  }}</td>
+                                        @else
+                                            <td> {{ $hareket->referans->ad }} <i class="fa fa-arrow-left"></i> {{ $hareket->birim->ad  }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -167,10 +201,10 @@
     <script src="/backend/assets/pages/scripts/components-select2.min.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-    $(function(){
-        var tarih = new Date();
-        $('#bitisTarihiTarihi').val(tarih.getDate());
-    });
+        $(function () {
+            var tarih = new Date();
+            $('#bitisTarihiTarihi').val(tarih.getDate());
+        });
     </script>
 
 @endsection

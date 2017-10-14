@@ -32,6 +32,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function firma(){
+        return $this->hasOne(Firma::class,'id','firma_id');
+    }
 
     public function birim(){
         return $this->belongsTo(Birim::class,'birim_id','id');

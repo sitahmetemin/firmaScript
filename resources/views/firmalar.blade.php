@@ -16,14 +16,14 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-university font-green"></i>
-                        <span class="caption-subject font-green sbold uppercase">Firmalar</span>
+                        <span class="caption-subject font-green sbold uppercase">Firma</span>
                     </div>
                     <div class="actions">
-                            <div class="btn-group btn-group-devided">
-                                <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
-                                    <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
-                                </label>
-                            </div>
+                        <div class="btn-group btn-group-devided">
+                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
+                                <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
+                            </label>
+                        </div>
                         <div class="btn-group">
                             <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-share"></i>
@@ -73,24 +73,47 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($cekilenFirmalar as $firma)
-                                <tr>
-                                    <td> {{ $firma->id }}</td>
-                                    <td> {{ $firma->ad }}</td>
-                                    <td>
-                                        @if($firma->durum)
-                                            <label class="label label-primary"><i class="fa fa-eye"></i>&nbsp; Aktif</label>
-                                        @else
-                                            <label class="label label-danger"><i class="fa fa-eye-slash"></i> &nbsp; Pasif</label>
-                                        @endif
-                                    </td>
-                                    <td> {{ $firma->updated_at }}</td>
-                                    <td>
-                                        <a href="/firmalar/guncelle-firma/{{ $firma->id }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>&nbsp;/ &nbsp;
-                                        <a href="/firmalar/sil-firma/{{ $firma->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if(\Illuminate\Support\Facades\Auth::user()->yetki != 'superAdmin')
+                                @foreach($cekilenFirmalar as $firma)
+                                    @if( \Illuminate\Support\Facades\Auth::user()->firma_id == $firma->id && \Illuminate\Support\Facades\Auth::user()->yetki == 'admin' )
+                                        <tr>
+                                            <td> {{ $firma->id }}</td>
+                                            <td> {{ $firma->ad }}</td>
+                                            <td>
+                                                @if($firma->durum)
+                                                    <label class="label label-primary"><i class="fa fa-eye"></i>&nbsp; Aktif</label>
+                                                @else
+                                                    <label class="label label-danger"><i class="fa fa-eye-slash"></i> &nbsp; Pasif</label>
+                                                @endif
+                                            </td>
+                                            <td> {{ $firma->updated_at }}</td>
+                                            <td>
+                                                <a href="/firmalar/guncelle-firma/{{ $firma->id }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @else
+                                @foreach($cekilenFirmalar as $firma)
+                                    <tr>
+                                        <td> {{ $firma->id }}</td>
+                                        <td> {{ $firma->ad }}</td>
+                                        <td>
+                                            @if($firma->durum)
+                                                <label class="label label-primary"><i class="fa fa-eye"></i>&nbsp; Aktif</label>
+                                            @else
+                                                <label class="label label-danger"><i class="fa fa-eye-slash"></i> &nbsp; Pasif</label>
+                                            @endif
+                                        </td>
+                                        <td> {{ $firma->updated_at }}</td>
+                                        <td>
+                                            <a href="/firmalar/guncelle-firma/{{ $firma->id }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>&nbsp;/ &nbsp;
+                                            <a href="/firmalar/sil-firma/{{ $firma->id }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>&nbsp;/ &nbsp;
+                                            <a href="/firmalar/kimlik-firma/{{ $firma->id }}" class="btn btn-default btn-sm"><i class="fa fa-user"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
