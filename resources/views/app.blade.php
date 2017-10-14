@@ -105,7 +105,7 @@
                                     -
                                     {{ \Illuminate\Support\Facades\Auth::user()->birim->birimTuru->ad }}
                                 @else
-                                    <i class="fa fa-user-secret"></i>
+                                    <i class="fa fa-user-secret"></i> Super Admin
                                 @endif
                             </span>
                             <i class="fa fa-angle-down"></i>
@@ -352,6 +352,8 @@
             2017 &copy; BeeCorp Yazılım -
             @if(isset(\Illuminate\Support\Facades\Auth::user()->firma->ad))
                 {{ \Illuminate\Support\Facades\Auth::user()->firma->ad }}
+            @else
+                <label class="label label-info">{{ session()->get('firma_id') }}</label>
             @endif
         </div>
         <div class="scroll-to-top">

@@ -18,6 +18,6 @@ class FirmaScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('firma_id', Auth::user()->firma_id);
+        $builder->where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id));
     }
 }

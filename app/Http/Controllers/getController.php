@@ -25,27 +25,26 @@ class getController extends AdminController
         return view('login');
     }
 
-    //------------------------------------------------------------SuperAdmin
+    //------------------------------------------------------------SuperAdmin Session Bilgisi Alma
     public function firmaIDGiy($id)
     {
         session()->forget('firma_id');
         session()->put('firma_id', $id);
-        return session()->get('firma_id');
-        return redirect('/');
+        return redirect('firmalar');
     }
-    //------------------------------------------------------------SuperAdmin
+    //------------------------------------------------------------SuperAdmin Session Bilgisi Alma
 
     //------------------------------------------------------------Listeleme Sayfaları
     public function getirHome()
     {
         return view('home', [
             'firmaAdet' => Firma::count(),
-            'calisanAdet' => User::where('firma_id', Auth::user()->firma_id)->count(),
-            'urunAdet' => Urun::where('firma_id', Auth::user()->firma_id)->count(),
-            'musteriAdet' => Musteri::where('firma_id', Auth::user()->firma_id)->count(),
-            'kategoriAdet' => UrunKategori::where('firma_id', Auth::user()->firma_id)->count(),
-            'birimAdet' => Birim::where('firma_id', Auth::user()->firma_id)->count(),
-            'talepAdet' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay', 0)->count(),
+            'calisanAdet' => User::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->count(),
+            'urunAdet' => Urun::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->count(),
+            'musteriAdet' => Musteri::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->count(),
+            'kategoriAdet' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->count(),
+            'birimAdet' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->count(),
+            'talepAdet' => Talep::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('onay', 0)->count(),
         ]);
     }
 
@@ -62,7 +61,7 @@ class getController extends AdminController
         $this->authorize('view', Birim::class);
 
         return view('birimler', [
-            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimler' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -71,7 +70,7 @@ class getController extends AdminController
         $this->authorize('view', BirimTuru::class);
 
         return view('ekle.ekle-birim-turu', [
-            'cekilenBirimTurleri' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimTurleri' => BirimTuru::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -79,7 +78,7 @@ class getController extends AdminController
     {
         $this->authorize('view', User::class);
         return view('calisanlar', [
-            'cekilenCalisanlar' => User::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenCalisanlar' => User::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -87,7 +86,7 @@ class getController extends AdminController
     {
         $this->authorize('view', Musteri::class);
         return view('musteriler', [
-            'cekilenMusteriler' => Musteri::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenMusteriler' => Musteri::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -96,7 +95,7 @@ class getController extends AdminController
         $this->authorize('view', Urun::class);
 
         return view('urunler', [
-            'cekilenUrunler' => Urun::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenUrunler' => Urun::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -104,7 +103,7 @@ class getController extends AdminController
     {
         $this->authorize('view', UrunBirim::class);
         return view('ekle.ekle-urun-birimleri', [
-            'cekilenUrunBirimleri' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenUrunBirimleri' => UrunBirim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -112,7 +111,7 @@ class getController extends AdminController
     {
         $this->authorize('view', Talep::class);
         return view('talepler', [
-            'cekilenTalepler' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay',0)->get(),
+            'cekilenTalepler' => Talep::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('onay',0)->get(),
         ]);
     }
 
@@ -128,14 +127,14 @@ class getController extends AdminController
     {
         $this->authorize('view', Talep::class);
         return view('onaylanan-talepler', [
-            'cekilenTalep' => Talep::where('firma_id', Auth::user()->firma_id)->where('onay', 1)->get(),
+            'cekilenTalep' => Talep::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('onay', 1)->get(),
         ]);
     }
 
     public function getirRaporlar()
     {
         return view('raporlar', [
-            'cekilenBirim' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirim' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -143,8 +142,8 @@ class getController extends AdminController
     {
         $this->authorize('view', Proje::class);
         return view('ekle.ekle-proje', [
-            'cekilenProjeler' => Proje::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenMusteriler' => Musteri::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenProjeler' => Proje::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenMusteriler' => Musteri::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -153,7 +152,7 @@ class getController extends AdminController
         $this->authorize('view', Hareket::class);
 
         return view('transferler', [
-            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->where('firma_id', Auth::user()->firma_id)->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->get(),
+            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->get(),
         ]);
     }
 
@@ -165,7 +164,7 @@ class getController extends AdminController
     {
         $this->authorize('view', Birim::class);
         return view('ekle.ekle-birim', [
-            'cekilenTurler' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenTurler' => BirimTuru::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -179,8 +178,8 @@ class getController extends AdminController
     {
         $this->authorize('view', User::class);
         return view('ekle.ekle-calisan', [
-            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenBirimTurleri' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimler' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenBirimTurleri' => BirimTuru::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
             'cekilenFirmalar' => Firma::all(),
         ]);
     }
@@ -190,7 +189,7 @@ class getController extends AdminController
         $this->authorize('view', Musteri::class);
 
         return view('ekle.ekle-musteri',[
-            'cekilenYetkililer' => User::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenYetkililer' => User::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -198,8 +197,8 @@ class getController extends AdminController
     {
         $this->authorize('view', Urun::class);
         return view('ekle.ekle-urun', [
-            'kategoriler' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenBirimler' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
+            'kategoriler' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenBirimler' => UrunBirim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -207,7 +206,7 @@ class getController extends AdminController
     {
         $this->authorize('view', UrunKategori::class);
         return view('ekle.ekle-urun-kategori', [
-            'urunKategorileri' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
+            'urunKategorileri' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -215,9 +214,9 @@ class getController extends AdminController
     {
         $this->authorize('view', Talep::class);
         return view('ekle.ekle-talep', [
-            'cekilenUrunBirimleri' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenUrunKategori' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenUrunBirimleri' => UrunBirim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenBirimler' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenUrunKategori' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -332,7 +331,7 @@ class getController extends AdminController
         $this->authorize('view', Birim::class);
         return view('guncelle.guncelle-birim', [
             'bulunanBirim' => Birim::find($id),
-            'cekilenBirimTuru' => BirimTuru::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimTuru' => BirimTuru::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -349,7 +348,7 @@ class getController extends AdminController
         $this->authorize('view', User::class);
         return view('guncelle.guncelle-calisan', [
             'bulunanCalisan' => $user,
-            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenBirimler' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
             'cekilenFirmalar' => Firma::all(),
         ]);
     }
@@ -367,7 +366,7 @@ class getController extends AdminController
         $this->authorize('view', Musteri::class);
         return view('guncelle.guncelle-musteri', [
             'bulunanMusteri' => Musteri::find($id),
-            'cekilenYetkililer' => User::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenYetkililer' => User::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -376,8 +375,8 @@ class getController extends AdminController
         $this->authorize('view', Urun::class);
         return view('guncelle.guncelle-urun', [
             'bulunanUrun' => Urun::find($id),
-            'cekilenKategoriler' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenBirimler' => UrunBirim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenKategoriler' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenBirimler' => UrunBirim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 
@@ -403,8 +402,8 @@ class getController extends AdminController
         return view('guncelle.guncelle-talep', [
             'bulunanTalep' => Talep::find($id),
             'bulunanTalepDetay' => TalepDetay::where('talep_id', $id)->get(),
-            'cekilenUrunKategori' => UrunKategori::where('firma_id', Auth::user()->firma_id)->get(),
-            'cekilenBirimler' => Birim::where('firma_id', Auth::user()->firma_id)->get(),
+            'cekilenUrunKategori' => UrunKategori::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
+            'cekilenBirimler' => Birim::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
 

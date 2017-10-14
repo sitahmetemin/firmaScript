@@ -40,7 +40,7 @@ class PostController extends AdminController
 
         $this->authorize('create', Urun::class);
 
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Urun::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -54,7 +54,7 @@ class PostController extends AdminController
     {
         $this->authorize('create', Birim::class);
 
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Birim::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -67,7 +67,7 @@ class PostController extends AdminController
     public function postBirimTuruEkle(Request $request)
     {
         $this->authorize('create', BirimTuru::class);
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = BirimTuru::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -82,7 +82,7 @@ class PostController extends AdminController
     {
         Hareket::create($request->only());
         $this->authorize('create', Proje::class);
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Proje::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -97,7 +97,7 @@ class PostController extends AdminController
     {
         $this->authorize('create', UrunKategori::class);
 
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = UrunKategori::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -112,7 +112,7 @@ class PostController extends AdminController
     {
         $this->authorize('create', UrunBirim::class);
 
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = UrunBirim::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -126,7 +126,7 @@ class PostController extends AdminController
     public function postMusteriEkle(Request $request)
     {
         $this->authorize('create', Musteri::class);
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Musteri::create($request->all());
         if ($add) {
             $status = 'İşlem Başarılı';
@@ -146,7 +146,7 @@ class PostController extends AdminController
         $request->merge(['password' => $pass]);
 
         if (Auth::user()->yetki != 'superAdmin') {
-            $request->merge(['firma_id' => Auth::user()->firma_id]);
+            $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         }
 
         $add = User::create($request->only('name', 'lastname', 'email', 'password', 'tc_no', 'birim_id', 'yetki', 'firma_id'));
@@ -167,7 +167,7 @@ class PostController extends AdminController
     {
         $this->authorize('create', Talep::class);
 
-        $request->merge(['firma_id' => Auth::user()->firma_id]);
+        $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $request->merge(['talep_eden_birim_id' => Auth::user()->birim_id]);
         $request->merge(['talep_eden_calisan_id' => Auth::user()->id]);
         $request->merge(['onay' => 0]);
