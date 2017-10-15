@@ -111,7 +111,7 @@ class getController extends AdminController
     {
         $this->authorize('view', Talep::class);
         return view('talepler', [
-            'cekilenTalepler' => Talep::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('onay',0)->get(),
+            'cekilenTalepler' => Talep::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('onay', 0)->get(),
         ]);
     }
 
@@ -152,7 +152,7 @@ class getController extends AdminController
         $this->authorize('view', Hareket::class);
 
         return view('transferler', [
-            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('hareket_yonu', 0)->groupBy('referans_tipi','referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi' , 'created_at')->get(),
+            'cekilenTransferler' => Hareket::select('referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi', 'created_at')->where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->where('hareket_yonu', 0)->groupBy('referans_tipi', 'referans_id', 'referans_id', 'hareket_yonu', 'birim_id', 'referans_tipi', 'created_at')->get(),
         ]);
     }
 
@@ -188,7 +188,7 @@ class getController extends AdminController
     {
         $this->authorize('view', Musteri::class);
 
-        return view('ekle.ekle-musteri',[
+        return view('ekle.ekle-musteri', [
             'cekilenYetkililer' => User::where('firma_id', (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id))->get(),
         ]);
     }
@@ -220,13 +220,15 @@ class getController extends AdminController
         ]);
     }
 
-    public function talepKategoriUrunu($id){
+    public function talepKategoriUrunu($id)
+    {
         $urunler = Urun::where('kategori_id', $id)->get();
         return response()->json($urunler);
     }
 
-    public function talepUrunBirimi($id){
-        $birimler = Urun::where('id',$id)->get();
+    public function talepUrunBirimi($id)
+    {
+        $birimler = Urun::where('id', $id)->get();
         return response()->json($birimler);
     }
 
@@ -411,7 +413,8 @@ class getController extends AdminController
 
 
     //-----------------------------------------------------------------------Talep Onaylama
-    public function talepOnayla($id) {
+    public function talepOnayla($id)
+    {
         $onayla = Talep::find($id)->update(['onay' => 1]);
         if ($onayla) {
             $statu = 'İşlem Başarılı';
@@ -419,7 +422,8 @@ class getController extends AdminController
         }
     }
 
-    public function talepCikis($id) {
+    public function talepCikis($id)
+    {
         $onayla = Talep::find($id)->update(['onay' => 2]);
         if ($onayla) {
 
@@ -435,12 +439,12 @@ class getController extends AdminController
                     'urun_birim_id' => $talepDetay->urun_birim_id,
                     'urun_miktar' => $talepDetay->urun_adet,
                     'hareket_yonu' => 0,
-                    'birim_id' =>$talep->birim_id,
+                    'birim_id' => $talep->birim_id,
                 ]);
                 $i++;
             }
 
-            if ($i>0) {
+            if ($i > 0) {
                 $status = 'İşlem Başarılı';
                 return redirect('onaylanan-talepler')->with('status', $status);
             }
@@ -450,7 +454,8 @@ class getController extends AdminController
         }
     }
 
-    public function talepGiris($id) {
+    public function talepGiris($id)
+    {
         $onayla = Talep::find($id)->update(['onay' => 3]);
         if ($onayla) {
 
@@ -466,12 +471,12 @@ class getController extends AdminController
                     'urun_birim_id' => $talepDetay->urun_birim_id,
                     'urun_miktar' => $talepDetay->urun_adet,
                     'hareket_yonu' => 1,
-                    'birim_id' =>$talep->birim_id,
+                    'birim_id' => $talep->birim_id,
                 ]);
                 $i++;
             }
 
-            if ($i>0) {
+            if ($i > 0) {
                 $status = 'İşlem Başarılı';
                 return redirect('transferler')->with('status', $status);
             }
@@ -483,9 +488,6 @@ class getController extends AdminController
 
 
     //-----------------------------------------------------------------------Talep Onaylama BİTİŞ
-
-
-
 
 
 }
