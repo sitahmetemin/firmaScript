@@ -29,21 +29,21 @@ class TalepPolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->talep === true );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->talep === true );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->talep === true );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->talep === true );
     }
 
     public function update(User $user, Talep $talep)
     {
-        return ($user->firma_id === $talep->firma_id && $user->yetkiler->talep === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $talep->firma_id && $user->yetkiler->talep === true  );
     }
 
     public function delete(User $user, Talep $talep)
     {
-        return ($user->firma_id === $talep->firma_id && $user->yetkiler->talep === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $talep->firma_id && $user->yetkiler->talep === true  );
     }
 }

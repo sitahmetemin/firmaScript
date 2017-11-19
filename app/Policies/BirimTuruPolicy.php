@@ -29,21 +29,21 @@ class BirimTuruPolicy
 
     public function view(User $user)
     {
-        return ($user->yetkiler->birimTuru === true );
+        return ($user->yetki == 'admin' || $user->yetkiler->birimTuru === true );
     }
 
     public function create(User $user)
     {
-        return ($user->yetkiler->birimTuru === true );
+        return ($user->yetki == 'admin' || $user->yetkiler->birimTuru === true );
     }
 
     public function update(User $user, BirimTuru $birimTuru)
     {
-        return ($user->firma_id === $birimTuru->firma_id && $user->yetkiler->birimTuru === true );
+        return ($user->yetki == 'admin' || $user->firma_id === $birimTuru->firma_id && $user->yetkiler->birimTuru === true );
     }
 
     public function delete(User $user, BirimTuru $birimTuru)
     {
-        return ($user->firma_id === $birimTuru->firma_id && $user->yetkiler->birimTuru === true );
+        return ($user->yetki == 'admin' || $user->firma_id === $birimTuru->firma_id && $user->yetkiler->birimTuru === true );
     }
 }

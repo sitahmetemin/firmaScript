@@ -29,21 +29,21 @@ class UrunKategoriPolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->urunKategorisi === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urunKategorisi === true  );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->urunKategorisi === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urunKategorisi === true  );
     }
 
     public function update(User $user, UrunKategori $urunKategori)
     {
-        return ($user->firma_id === $urunKategori->firma_id && $user->yetkiler->urunKategorisi === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $urunKategori->firma_id && $user->yetkiler->urunKategorisi === true  );
     }
 
     public function delete(User $user, UrunKategori $urunKategori)
     {
-        return ($user->firma_id === $urunKategori->firma_id && $user->yetkiler->urunKategorisi === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $urunKategori->firma_id && $user->yetkiler->urunKategorisi === true  );
     }
 }

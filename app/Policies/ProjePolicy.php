@@ -29,21 +29,21 @@ class ProjePolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->proje === true );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->proje === true );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->proje === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->proje === true  );
     }
 
     public function update(User $user, Proje $proje)
     {
-        return ($user->firma_id === $proje->firma_id && $user->yetkiler->proje === true );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $proje->firma_id && $user->yetkiler->proje === true );
     }
 
     public function delete(User $user, Proje $proje)
     {
-        return ($user->firma_id === $proje->firma_id && $user->yetkiler->proje === true );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $proje->firma_id && $user->yetkiler->proje === true );
     }
 }

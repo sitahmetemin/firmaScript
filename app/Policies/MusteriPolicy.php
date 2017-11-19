@@ -29,21 +29,21 @@ class MusteriPolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->musteri === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->musteri === true  );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->musteri === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->musteri === true  );
     }
 
     public function update(User $user, Musteri $musteri)
     {
-        return ($user->firma_id === $musteri->firma_id && $user->yetkiler->musteri === true  );
+        return ($user->yetki == 'admin' || $user->firma_id === $musteri->firma_id && $user->yetkiler->musteri === true  );
     }
 
     public function delete(User $user, Musteri $musteri)
     {
-        return ($user->firma_id === $musteri->firma_id && $user->yetkiler->musteri === true  );
+        return ($user->yetki == 'admin' || $user->firma_id === $musteri->firma_id && $user->yetkiler->musteri === true  );
     }
 }

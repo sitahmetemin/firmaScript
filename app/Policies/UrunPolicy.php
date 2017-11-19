@@ -29,21 +29,21 @@ class UrunPolicy
 
     public function view(User $user)
     {
-        return ($user->yetkiler->urun === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urun === true  );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->urun === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urun === true  );
     }
 
     public function update(User $user, Urun $urun)
     {
-        return ($user->firma_id === $urun->firma_id && $user->yetkiler->urun === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $urun->firma_id && $user->yetkiler->urun === true  );
     }
 
     public function delete(User $user, Urun $urun)
     {
-        return ($user->firma_id === $urun->firma_id && $user->yetkiler->urun === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $urun->firma_id && $user->yetkiler->urun === true  );
     }
 }

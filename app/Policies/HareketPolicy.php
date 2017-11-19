@@ -29,21 +29,21 @@ class HareketPolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->hareket === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->hareket === true  );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->hareket === true );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->hareket === true );
     }
 
     public function update(User $user, Hareket $hareket)
     {
-        return ($user->firma_id === $hareket->firma_id && $user->yetkiler->hareket === true );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $hareket->firma_id && $user->yetkiler->hareket === true );
     }
 
     public function delete(User $user, Hareket $hareket)
     {
-        return ($user->firma_id === $hareket->firma_id && $user->yetkiler->hareket === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $hareket->firma_id && $user->yetkiler->hareket === true  );
     }
 }

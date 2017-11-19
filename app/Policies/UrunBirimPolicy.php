@@ -29,21 +29,21 @@ class UrunBirimPolicy
 
     public function view(User $user)
     {
-        return ( $user->yetkiler->urunBirimi === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urunBirimi === true  );
     }
 
     public function create(User $user)
     {
-        return ( $user->yetkiler->urunBirimi === true  );
+        return ($user->yetki == 'admin' ||  $user->yetkiler->urunBirimi === true  );
     }
 
     public function update(User $user, UrunBirim $urunBirim)
     {
-        return ($user->firma_id === $urunBirim->firma_id && $user->yetkiler->urunBirimi === true  );
+        return ($user->yetki == 'admin' ||  $user->firma_id === $urunBirim->firma_id && $user->yetkiler->urunBirimi === true  );
     }
 
     public function delete(User $user, UrunBirim $urunBirim)
     {
-        return ($user->firma_id === $urunBirim->firma_id && $user->yetkiler->urunBirimi === true  );
+        return ($user->yetki == 'admin' || $user->firma_id === $urunBirim->firma_id && $user->yetkiler->urunBirimi === true  );
     }
 }
