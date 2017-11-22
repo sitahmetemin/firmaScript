@@ -78,22 +78,6 @@
                             @foreach($cekilenTalepler as $talep)
                                 <tr>
                                     <td> {{ $talep->id }}</td>
-                                    {{--<td>--}}
-                                    {{--@foreach($talep->talepDetaylari->take(3) as $talepDetaylari)--}}
-
-                                    {{--@foreach($cekilenUrunler as $urun)--}}
-
-                                    {{--@if( $talepDetaylari->urun_id == $urun->id )--}}
-                                    {{--<label class="label label-primary">{{ $urun->ad }} ( {{ $talepDetaylari->urun_adet }} )</label>&nbsp;<i class="fa fa-arrow-right"></i>--}}
-                                    {{--@if(!empty($talepDetaylari->urunBirimi->ad))--}}
-                                    {{--<label class="label label-success">[ {{ $talepDetaylari->urunBirimi->ad }} ]</label>--}}
-                                    {{--@else--}}
-                                    {{--[<i class="fa fa-close"></i>]--}}
-                                    {{--@endif--}}
-                                    {{--@endif--}}
-                                    {{--@endforeach--}}
-                                    {{--@endforeach--}}
-                                    {{--</td>--}}
                                     <td> {{ $talep->aciklama }}</td>
                                     <td>
                                         <div class="row">

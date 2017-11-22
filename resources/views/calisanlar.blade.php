@@ -82,11 +82,8 @@
                                     <td> {{ $user->lastname }}</td>
                                     <td> {{ $user->email }}</td>
                                     <td>
-                                        @if(empty($user->birim->ad) || empty($user->birim->birimTuru->ad))
-                                            -
-                                        @else
-                                            {{ $user->birim->ad }} <i class="fa fa-arrows-h"></i> {{ $user->birim->birimTuru->ad }}
-                                        @endif
+                                        {{ ( isset($user->birim->ad) ? $user->birim->ad : 'Silinmiş' ) }} <i class="fa fa-arrows-h"></i> {{ ( isset($user->birim->birimTuru->ad) ? $user->birim->birimTuru->ad : 'Silinmiş'
+                                         ) }}
                                     </td>
                                     <td> {{ $user->updated_at }}</td>
                                     <td>

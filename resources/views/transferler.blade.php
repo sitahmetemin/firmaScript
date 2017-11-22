@@ -78,8 +78,6 @@
                                         @else
                                             <label class="label label-warning">Proje</label>
                                         @endif
-
-
                                     </td>
                                     <td>
                                         @if($transfer->hareket_yonu == 0)
@@ -88,12 +86,8 @@
                                             <label class="label label-warning">Giriş</label>
                                         @endif
                                     </td>
-                                    <td>
-                                        {{ $transfer->birim->ad }}
-                                    </td>
-                                    <td>
-                                        {{ $transfer->created_at }}
-                                    </td>
+                                    <td>{{ $transfer->birim->ad }}</td>
+                                    <td>{{ $transfer->created_at }}</td>
                                     <td>
                                         <div class="row col-md-12">
                                             <div class="col-md-3">

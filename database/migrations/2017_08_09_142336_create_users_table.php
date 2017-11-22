@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('birim_id')->unsigned()->nullable();
             $table->integer('firma_id')->unsigned()->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('birim_id')

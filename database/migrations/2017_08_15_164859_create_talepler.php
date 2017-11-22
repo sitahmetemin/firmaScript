@@ -22,6 +22,7 @@ class CreateTalepler extends Migration
             $table->integer('talep_eden_calisan_id')->unsigned();
             $table->integer('talep_eden_birim_id')->unsigned()->nullable();
             $table->integer('firma_id')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('birim_id')

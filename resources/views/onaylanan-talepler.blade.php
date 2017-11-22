@@ -77,7 +77,8 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 text-center">
-                                                {{ $talep->birim->ad }} - <b>{{ $talep->birim->birimTuru->ad }}</b>
+                                                {{ ( isset($talep->birim->ad) ? $talep->birim->ad : 'Silinmiş') }} -
+                                                <b>{{ ( isset($talep->birim->birimTuru->ad) ? $talep->birim->birimTuru->ad : 'Silinmiş')  }}</b>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -87,7 +88,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 text-center">
-                                                {{$talep->calisanBirim->ad }} - <b>{{ $talep->calisanBirim->birimTuru->ad }} </b>
+                                                {{ ( isset($talep->calisanBirim->ad) ? $talep->calisanBirim->ad : 'Silinmiş') }} -
+                                                <b>{{ ( isset($talep->calisanBirim->birimTuru->ad) ? $talep->calisanBirim->birimTuru->ad : 'Silinmiş') }} </b>
                                             </div>
                                         </div>
                                     </td>

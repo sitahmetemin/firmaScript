@@ -20,6 +20,7 @@ class CreateBirim extends Migration
             $table->string('il');
             $table->integer('firma_id')->unsigned()->nullable();
             $table->integer('tur_id')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('firma_id')

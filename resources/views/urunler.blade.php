@@ -81,8 +81,8 @@
                                     <td> {{ $urun->id }}</td>
                                     <td> {{ $urun->ad }}</td>
                                     <td> {{ substr($urun->aciklama, 0, 25) }}...</td>
-                                    <td> {{ $urun->urunBirimi->ad }}</td>
-                                    <td> {{ $urun->urunKategorisi->ad }}</td>
+                                    <td> {{ (isset($urun->urunBirimi->ad) ? $urun->urunBirimi->ad : 'Silinmiş') }}</td>
+                                    <td> {{ (isset($urun->urunKategorisi->ad) ? $urun->urunKategorisi->ad : 'Silinmiş') }}</td>
                                     <td>
                                         @if($urun->durum)
                                             <label class="label label-primary"><i class="fa fa-eye"></i>&nbsp; Aktif</label>

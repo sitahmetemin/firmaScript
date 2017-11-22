@@ -35,16 +35,16 @@ class BirimPolicy
 
     public function create(User $user)
     {
-        return ($user->yetkiler->birim === true || $user->yetki == 'admin' );
+        return ( $user->yetki == 'admin' || $user->yetkiler->birim === true);
     }
 
     public function update(User $user, Birim $birim)
     {
-        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true || $user->yetki == 'admin' );
+        return ($user->yetki == 'admin' || $user->firma_id === $birim->firma_id && $user->yetkiler->birim === true );
     }
 
     public function delete(User $user, Birim $birim)
     {
-        return ($user->firma_id === $birim->firma_id && $user->yetkiler->birim === true || $user->yetki == 'admin' );
+        return ($user->yetki == 'admin' || $user->firma_id === $birim->firma_id && $user->yetkiler->birim === true || $user->yetki == 'admin' );
     }
 }

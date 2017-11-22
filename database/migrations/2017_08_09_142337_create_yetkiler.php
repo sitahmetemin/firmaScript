@@ -25,6 +25,7 @@ class CreateYetkiler extends Migration
             $table->boolean('urun');
             $table->boolean('urunBirimi');
             $table->boolean('urunKategorisi');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')

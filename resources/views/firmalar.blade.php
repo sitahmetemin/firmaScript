@@ -20,9 +20,11 @@
                     </div>
                     <div class="actions">
                         <div class="btn-group btn-group-devided">
-                            <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
-                                <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
-                            </label>
+                            @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin')
+                                <label class="btn btn-transparent grey-salsa btn-outline btn-circle btn-sm">
+                                    <a href="/firmalar/ekle-firma" class="toggle"><i class="fa fa-plus"></i>&nbsp;Ekle</a>
+                                </label>
+                            @endif
                         </div>
                         <div class="btn-group">
                             <a class="btn red btn-outline btn-circle" href="javascript:;" data-toggle="dropdown">

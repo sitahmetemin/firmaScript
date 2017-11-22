@@ -85,6 +85,7 @@ class PostController extends AdminController
         $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Proje::create($request->all());
         if ($add) {
+
             $status = 'İşlem Başarılı';
             return redirect('ekle-proje')->with('status', $status);
         }
@@ -189,7 +190,8 @@ class PostController extends AdminController
 
     public function postGuncelleBirim(Request $request, $id)
     {
-        $this->authorize('update', Birim::class);
+        $yetkiKontrol = Birim::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = Birim::find($id)->update($request->all());
         if ($update) {
@@ -203,7 +205,8 @@ class PostController extends AdminController
 
     public function postGuncelleBirimTuru(Request $request, $id)
     {
-        $this->authorize('update', BirimTuru::class);
+        $yetkiKontrol = BirimTuru::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = BirimTuru::find($id)->update($request->all());
         if ($update) {
@@ -217,7 +220,8 @@ class PostController extends AdminController
 
     public function postGuncelleCalisan(Request $request, $id)
     {
-        $this->authorize('update', User::class);
+        $yetkiKontrol = User::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $pass = bcrypt($request->password);
         $request->except('password');
@@ -235,7 +239,9 @@ class PostController extends AdminController
 
     public function postGuncelleFirma(Request $request, $id)
     {
-        $this->authorize('update', Firma::class);
+        $yetkiKontrol = Firma::find($id);
+        $this->authorize('update', $yetkiKontrol);
+
         $update = Firma::find($id)->update($request->all());
         if ($update) {
             $statu = 'İşlem Başarılı';
@@ -248,7 +254,8 @@ class PostController extends AdminController
 
     public function postGuncelleMusteri(Request $request, $id)
     {
-        $this->authorize('update', Musteri::class);
+        $yetkiKontrol = Musteri::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = Musteri::find($id)->update($request->all());
         if ($update) {
@@ -262,7 +269,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrun(Request $request, $id)
     {
-        $this->authorize('update', Urun::class);
+        $yetkiKontrol = Urun::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = Urun::find($id)->update($request->all());
         if ($update) {
@@ -276,7 +284,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrunKategori(Request $request, $id)
     {
-        $this->authorize('update', UrunKategori::class);
+        $yetkiKontrol = UrunKategori::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = UrunKategori::find($id)->update($request->all());
         if ($update) {
@@ -290,7 +299,8 @@ class PostController extends AdminController
 
     public function postGuncelleUrunBirim(Request $request, $id)
     {
-        $this->authorize('update', UrunBirim::class);
+        $yetkiKontrol = UrunBirim::find($id);
+        $this->authorize('update', $yetkiKontrol);
 
         $update = UrunBirim::find($id)->update($request->all());
         if ($update) {

@@ -5,9 +5,12 @@ namespace App;
 use App\Observers\FirmaObserver;
 use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UrunBirim extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'urun_birimleri';
 
     protected $fillable = [
@@ -19,6 +22,8 @@ class UrunBirim extends Model
         'ad' => 'string',
         'firma_id' => 'integer',
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected static function boot()
     {

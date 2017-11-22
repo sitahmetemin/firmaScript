@@ -18,6 +18,7 @@ class CreateProjeler extends Migration
             $table->string('ad');
             $table->integer('musteri_id')->unsigned()->nulleble();
             $table->integer('firma_id')->unsigned()->nulleble();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('musteri_id')

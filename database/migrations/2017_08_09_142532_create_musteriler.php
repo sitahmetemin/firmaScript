@@ -22,6 +22,7 @@ class CreateMusteriler extends Migration
             $table->string('il');
             $table->integer('yetkili_id')->unsigned();
             $table->integer('firma_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('firma_id')

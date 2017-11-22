@@ -21,6 +21,7 @@ class CreateFirmalar extends Migration
             $table->string('email');
             $table->string('vergi_no');
             $table->boolean('durum');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

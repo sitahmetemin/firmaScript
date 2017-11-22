@@ -5,9 +5,12 @@ namespace App;
 use App\Observers\FirmaObserver;
 use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Musteri extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'musteriler';
 
     protected $fillable = [
@@ -29,6 +32,8 @@ class Musteri extends Model
         'yetkili_id' => 'integer',
         'firma_id' => 'integer',
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected static function boot()
     {

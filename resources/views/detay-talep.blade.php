@@ -45,11 +45,12 @@
                         </div>
                         <div class="col-md-12">
                             <strong>Kaynak:</strong>
-                            <span> {{ $cekilenTalep->birim->ad }} - {{ $cekilenTalep->birim->birimTuru->ad }} </span>
+                            <span> {{ (isset($cekilenTalep->birim->ad) ? $cekilenTalep->birim->ad : 'Silinmiş' ) }} - {{ (isset($cekilenTalep->birim->birimTuru->ad) ? $cekilenTalep->birim->birimTuru->ad : 'Silinmiş' ) }} </span>
                         </div>
                         <div class="col-md-12">
                             <strong>Hedef:</strong>
-                            <span> {{ $cekilenTalep->calisanBirim->ad }} - {{ $cekilenTalep->calisanBirim->birimTuru->ad }}</span>
+                            <span> {{ (isset( $cekilenTalep->calisanBirim->ad ) ? $cekilenTalep->calisanBirim->ad : 'Silinmiş') }} - {{ ( isset($cekilenTalep->calisanBirim->birimTuru->ad) ? $cekilenTalep->calisanBirim->birimTuru->ad : 'Silinmiş' )
+                            }}</span>
                         </div>
                         <div class="col-md-12">
                             <strong>Talep Oluşturulma Tarihi:</strong>
@@ -60,13 +61,14 @@
                             <strong>Talep Eden Çalışan Bilgileri:</strong>
                             <p>
                                 <b>Ad ve Soyad:</b>
-                                <span>{{ $cekilenTalep->calisan->name }} {{ $cekilenTalep->calisan->lastname }}</span>
+                                <span>{{ ( isset($cekilenTalep->calisan->name) ? $cekilenTalep->calisan->name : 'Silinmiş') }} {{ ( isset($cekilenTalep->calisan->lastname) ? $cekilenTalep->calisan->lastname : 'Silinmiş' ) }}</span>
                                 <br>
                                 <b>Email:</b>
-                                <span> {{ $cekilenTalep->calisan->email  }}</span>
+                                <span> {{ ( isset( $cekilenTalep->calisan->email ) ? $cekilenTalep->calisan->email : 'Silinmiş') }}</span>
                                 <br>
                                 <b>Birim:</b>
-                                <span> {{ $cekilenTalep->calisan->birim->ad  }} - {{ $cekilenTalep->calisan->birim->birimTuru->ad  }}</span>
+                                <span> {{ ( isset($cekilenTalep->calisan->birim->ad) ? $cekilenTalep->calisan->birim->ad : 'Silinmiş' ) }} - {{ ( isset($cekilenTalep->calisan->birim->birimTuru->ad) ? $cekilenTalep->calisan->birim->birimTuru->ad : 'Silinmiş' )
+                                }}</span>
                             </p>
                             <div class="clearfix"></div>
                         </div>
@@ -88,7 +90,7 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                                 <div class="col-xs-12 col-md-2">
-                                    <strong>Ürün Birimi:</strong> <span>{{ $talepDetay->urunBirimi->ad }}</span>
+                                    <strong>Ürün Birimi:</strong> <span>{{ ( isset($talepDetay->urunBirimi->ad) ? $talepDetay->urunBirimi->ad : 'Silinmiş' ) }}</span>
                                 </div>
                                 <hr class="col-xs-12">
                             @endforeach

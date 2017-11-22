@@ -5,9 +5,12 @@ namespace App;
 use App\Observers\FirmaObserver;
 use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Yetki extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'yetkiler';
 
     protected $fillable = [
@@ -35,6 +38,8 @@ class Yetki extends Model
         'urunKategorisi' => 'boolean',
         'user_id' => 'integer',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function calisan () {
         return $this->belongsTo(User::class, 'user_id', 'id');

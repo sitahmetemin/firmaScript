@@ -71,26 +71,26 @@
                                 </div>
                             </div>
                             @if( \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' )
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Çalışan Firması</label>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <select name="firma_id" id="single" class="form-control select2">
-                                                    <option></option>
-                                                    <optgroup label="Birimler">
-                                                        @foreach($cekilenFirmalar as $firma)
-                                                            <option value="{{ $firma->id }}"> {{ $firma->ad}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Çalışan Firması</label>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <select name="firma_id" id="single" class="form-control select2">
+                                                        <option></option>
+                                                        <optgroup label="Birimler">
+                                                            @foreach($cekilenFirmalar as $firma)
+                                                                <option value="{{ $firma->id }}"> {{ $firma->ad}}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
+                                        <span class="help-block"> Çalışanın Hangi Firmada Çalıştığını Seçiniz </span>
                                     </div>
-                                    <span class="help-block"> Çalışanın Hangi Firmada Çalıştığını Seçiniz </span>
                                 </div>
-                            </div>
                             @endif
                             <div class="form-group">
                                 <label class="control-label col-md-3">Çalışan Yetki Grubu</label>
@@ -117,37 +117,47 @@
                                 <label class="control-label col-md-3">Çalışanın ulaşmasını istediğiniz sayfalar</label>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
-                                        <div class="col-md-3">
-                                            <input name="birim" type="checkbox" class="make-switch">
-                                            <span class="help-block">Birim</span>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input name="birim" type="checkbox" class="make-switch">
+                                                <span class="help-block">Birim</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="birimTuru" type="checkbox" class="make-switch">
+                                                <span class="help-block">Birim Türü</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="urun" type="checkbox" class="make-switch">
+                                                <span class="help-block">Ürün</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="urunBirimi" type="checkbox" class="make-switch">
+                                                <span class="help-block">Ürün Birim</span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <input name="birimTuru" type="checkbox" class="make-switch">
-                                            <span class="help-block">Birim Türü</span>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input name="urunKategorisi" type="checkbox" class="make-switch">
+                                                <span class="help-block">Ürün Kategori</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="talep" type="checkbox" class="make-switch">
+                                                <span class="help-block">Talep</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="musteri" type="checkbox" class="make-switch">
+                                                <span class="help-block">Müşteri</span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="proje" type="checkbox" class="make-switch">
+                                                <span class="help-block">Proje</span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <input name="urun" type="checkbox" class="make-switch">
-                                            <span class="help-block">Ürün</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="urunBirimi" type="checkbox" class="make-switch">
-                                            <span class="help-block">Ürün Birim</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="urunKategorisi" type="checkbox" class="make-switch">
-                                            <span class="help-block">Ürün Kategori</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="talep" type="checkbox" class="make-switch">
-                                            <span class="help-block">Talep</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="musteri" type="checkbox" class="make-switch">
-                                            <span class="help-block">Müşteri</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="proje" type="checkbox" class="make-switch">
-                                            <span class="help-block">Proje</span>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input name="hareket" type="checkbox" class="make-switch" checked>
+                                                <span class="help-block">Transfer Yönetimi</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

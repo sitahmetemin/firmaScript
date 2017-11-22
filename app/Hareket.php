@@ -5,9 +5,12 @@ namespace App;
 use App\Observers\FirmaObserver;
 use App\Scopes\FirmaScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hareket extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'hareketler';
 
     protected $fillable = [
@@ -29,6 +32,8 @@ class Hareket extends Model
         'hareket_yonu' => 'boolean',
         'birim_id' => 'integer',
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected static function boot()
     {

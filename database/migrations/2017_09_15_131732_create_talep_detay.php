@@ -20,6 +20,7 @@ class CreateTalepDetay extends Migration
             $table->integer('talep_id')->unsigned()->nullable();
             $table->integer('urun_birim_id')->unsigned()->nullable();
             $table->integer('firma_id')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('talep_id')

@@ -237,8 +237,9 @@ class getController extends AdminController
     //-----------------------------------------------------------------Silme Metodları
     public function silCalisan($id)
     {
-        $this->authorize('delete', User::class);
+
         $delete = User::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('calisanlar')->with('status', $statu);
@@ -246,8 +247,8 @@ class getController extends AdminController
 
     public function silBirim($id)
     {
-        $this->authorize('delete', Birim::class);
         $delete = Birim::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('birimler')->with('status', $statu);
@@ -255,8 +256,8 @@ class getController extends AdminController
 
     public function silFirma($id)
     {
-        $this->authorize('delete', Firma::class);
         $delete = Firma::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('firmalar')->with('status', $statu);
@@ -264,8 +265,8 @@ class getController extends AdminController
 
     public function silMusteri($id)
     {
-        $this->authorize('delete', Musteri::class);
         $delete = Musteri::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('musteriler')->with('status', $statu);
@@ -273,8 +274,8 @@ class getController extends AdminController
 
     public function silUrun($id)
     {
-        $this->authorize('delete', Urun::class);
         $delete = Urun::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('urunler')->with('status', $statu);
@@ -282,8 +283,8 @@ class getController extends AdminController
 
     public function silUrunKategori($id)
     {
-        $this->authorize('delete', UrunKategori::class);
         $delete = UrunKategori::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('ekle-urun-kategori')->with('status', $statu);
@@ -291,8 +292,8 @@ class getController extends AdminController
 
     public function silUrunBirim($id)
     {
-        $this->authorize('delete', UrunBirim::class);
         $delete = UrunBirim::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('ekle-urun-birimleri')->with('status', $statu);
@@ -300,8 +301,8 @@ class getController extends AdminController
 
     public function silBirimTuru($id)
     {
-        $this->authorize('delete', BirimTuru::class);
         $delete = BirimTuru::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('ekle-birim-turu')->with('status', $statu);
@@ -309,8 +310,8 @@ class getController extends AdminController
 
     public function silTalep($id)
     {
-        $this->authorize('delete', Talep::class);
         $delete = Talep::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('talepler')->with('status', $statu);
@@ -318,8 +319,8 @@ class getController extends AdminController
 
     public function silOnaylananTalep($id)
     {
-        $this->authorize('delete', Talep::class);
         $delete = Talep::find($id);
+        $this->authorize('delete', $delete);
         $delete->delete();
         $statu = 'İşlem Başarılı';
         return redirect('onaylanan-talepler')->with('status', $statu);

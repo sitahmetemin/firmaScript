@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Firma extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'firmalar';
 
     protected $fillable = [
@@ -25,4 +28,6 @@ class Firma extends Model
         'vergi_no' => 'string',
         'durum' => 'boolean',
     ];
+
+    protected $dates = ['deleted_at'];
 }

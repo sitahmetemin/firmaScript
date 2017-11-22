@@ -17,6 +17,7 @@ class CreateBirimTuru extends Migration
             $table->increments('id');
             $table->string('ad');
             $table->integer('firma_id')->unsigned()->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('firma_id')

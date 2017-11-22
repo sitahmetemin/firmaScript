@@ -40,7 +40,7 @@ class FirmaPolicy
 
     public function update(User $user)
     {
-        return ($user->yetki === 'superAdmin' );
+        return ($user->yetki === 'superAdmin' || $user->yetki === 'admin' );
     }
 
     public function delete(User $user)

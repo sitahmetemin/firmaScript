@@ -26,6 +26,7 @@ class CreateHareketler extends Migration
             $table->boolean('hareket_yonu');
             $table->integer('birim_id')->unsigned()->nullable();
             $table->integer('firma_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('urun_id')

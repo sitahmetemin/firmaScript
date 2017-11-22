@@ -78,12 +78,7 @@
                                     <td> {{$birim->id}}</td>
                                     <td> {{ $birim->ad }}</td>
                                     <td>
-                                        {{$birim->birimTuru->ad}}
-                                        {{--@foreach($turler as $tur)--}}
-                                            {{--@if($birim->tur_id == $tur->id)--}}
-                                                {{--{{$tur->ad}}--}}
-                                            {{--@endif--}}
-                                            {{--@endforeach--}}
+                                        {{(isset($birim->birimTuru->ad) ? $birim->birimTuru->ad : 'Silinmiş' ) }}
                                     </td>
                                     <td> {{ $birim->updated_at }}</td>
                                     <td>
