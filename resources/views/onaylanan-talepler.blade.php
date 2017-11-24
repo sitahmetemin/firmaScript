@@ -145,7 +145,7 @@
                                             {{--<input type="text" name="fatura_no" class="col-md-12 form-control">--}}
                                         {{--</p>--}}
                                     {{--</div>--}}
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <h4>İrsaliye No</h4>
                                         <p>
                                             <input type="text" name="irsaliye_no" class="col-md-12 form-control" required>
