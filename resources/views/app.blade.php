@@ -199,7 +199,7 @@
                         </li>
                     @endif
                     @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'admin' || \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' || \Illuminate\Support\Facades\Auth::user()->yetkiler->birim == 1)
-                        <li class="nav-item  active open">
+                        <li class="nav-item {{ (strpos(url()->full(),'birimler') ? 'active open' : ( strpos(url()->full(),'ekle-birim-turu') ? 'active open' : ' ' ))  }} ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-table"></i>
                                 <span class="title">Firma Birimleri</span>
@@ -208,7 +208,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a href="/birimler" class="nav-link ">
+                                    <a href="/birimler" class="nav-link">
                                         <span class="title">Birimler</span>
                                         <span class="selected"></span>
                                     </a>
@@ -223,7 +223,7 @@
                         </li>
                     @endif
                     @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'admin' || \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' || \Illuminate\Support\Facades\Auth::user()->yetkiler->urun == 1)
-                        <li class="nav-item  active open">
+                        <li class="nav-item  {{ (strpos(url()->full(),'urun') ? 'active open' : ( strpos(url()->full(),'ekle-urun-birimleri') ? 'active open' : ' ' ))  }}">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-gavel"></i>
                                 <span class="title">Ürün Bilgileri</span>
@@ -253,7 +253,7 @@
                         </li>
                     @endif
                     @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'admin' || \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' || \Illuminate\Support\Facades\Auth::user()->yetkiler->talep == 1)
-                        <li class="nav-item  active open">
+                        <li class="nav-item  {{ (strpos(url()->full(),'talep') ? 'active open' : '')  }}">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-arrow-circle-down"></i>
                                 <span class="title">Talep Sistemi</span>

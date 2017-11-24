@@ -21,6 +21,8 @@ class Hareket extends Model
         'urun_miktar',
         'hareket_yonu',
         'birim_id',
+        'fatura_no',
+        'irsaliye_no',
     ];
 
     protected $casts = [
@@ -31,6 +33,8 @@ class Hareket extends Model
         'urun_miktar' => 'integer',
         'hareket_yonu' => 'boolean',
         'birim_id' => 'integer',
+        'fatura_no' => 'string',
+        'irsaliye_no' => 'string',
     ];
 
     protected $dates = ['deleted_at'];

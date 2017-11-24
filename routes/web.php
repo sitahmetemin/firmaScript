@@ -25,7 +25,6 @@ Route::get('/talepler/detay-talep/{id}','getController@getirTalepDetay');
 Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
 Route::get('/hareketler','getController@getirHareketler');
 Route::get('/raporlar','getController@getirRaporlar');
-Route::get('/onaylanan-talepler','getController@getirOnaylananTalepler');
 Route::get('/transferler','getController@getirTransferYonetimi');
 //----------------------------------------------------------------Listeleme Sayfaları BİTİŞ
 
@@ -74,7 +73,6 @@ Route::get('/talepler/guncelle-talep/{id}','getController@guncelleTalep');
 Route::get('/ekle-birim-turu/guncelle-birim-turu/{id}','getController@guncelleBirimTuru');
 Route::get('/ekle-urun-kategori/guncelle-urun-kategori/{id}','getController@guncelleUrunKategori');
 Route::get('/ekle-urun-birim/guncelle-urun-birim/{id}','getController@guncelleUrunBirim');
-Route::get('/onaylanan-talepler/cikis-talep/{id}','getController@talepCikis');
 Route::get('/talepler/detay-talep/geldi/{id}','getController@talepGiris');
 //----------------------------------------------------------------------Güncelleme Sayfaları Getir BİTİŞ
 
@@ -92,6 +90,8 @@ Route::post('/ekle-birim-turu','PostController@postBirimTuruEkle');
 Route::post('/ekle-urun-kategori','PostController@postUrunKategoriEkle');
 Route::post('/ekle-urun-birimleri','PostController@postUrunBirimleriEkle');
 Route::post('/ekle-proje','PostController@postProjeEkle');
+
+Route::get('/onaylanan-talepler/cikis-talep/{id}','getController@talepCikis');
 //--------------------------------------------------------------------------Veritabanına Ekle BİTİŞ
 
 //------------------------------------------------------------------------- Veritabanı Güncelle İşlemi Başlangıç
@@ -103,7 +103,6 @@ Route::post('/birimler/guncelle-birim/{id}', 'PostController@postGuncelleBirim')
 Route::post('/ekle-birim-turu/guncelle-birim-turu/{id}', 'PostController@postGuncelleBirimTuru');
 Route::post('/ekle-urun-kategori/guncelle-urun-kategori/{id}', 'PostController@postGuncelleUrunKategori');
 Route::post('/ekle-urun-birim/guncelle-urun-birim/{id}', 'PostController@postGuncelleUrunBirim');
-
 //--------------------------------------------------------------------------  Veritabanı Güncelle İşlemi BİTİŞ
 
 //--------------------------------------------------------------------------  Rapor Getir İşlemi

@@ -9,7 +9,7 @@
 //--------------------------------------------------------- Ekleme ve Update İşlemleri
 /*
  * PostController de yapıldı.
- * sadece transfer ve onaylama da GetController Kullanıldı
+ * sadece transfer ve onaylama GetController Kullanıldı
  */
 
 

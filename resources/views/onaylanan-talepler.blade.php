@@ -110,7 +110,7 @@
                                                 <a href="/onaylanan-talepler/sil-talep/{{ $talep->id }}" title="Sil" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             </div>
                                             <div class="col-md-3">
-                                                <a href="/onaylanan-talepler/cikis-talep/{{ $talep->id }}" title="Yola Çıktı" class="btn btn-info btn-sm"><i class="fa fa-truck"></i> &nbsp; Yola
+                                                <a class="btn blue btn-outline sbold" title="Yola Çıktı" data-toggle="modal" href="#responsive-{{ $talep->id }}"><i class="fa fa-truck"></i>&nbsp;Yola
                                                     Çıktı</a>
                                             </div>
                                         </div>
@@ -125,6 +125,45 @@
             <!-- End: life time stats -->
         </div>
     </div>
+
+    @foreach($cekilenTalep as $talep)
+        <div id="responsive-{{ $talep->id }}" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Yola Çıkış Bilgileri</h4>
+                    </div>
+                    <form action="/onaylanan-talepler/cikis-talep/{{$talep->id}}" method="get">
+                        {{ csrf_field() }}
+                        <div class="modal-body">
+                            <div class="scroller" style="height:100px" data-always-visible="1" data-rail-visible1="1">
+                                <div class="row">
+                                    {{--<div class="col-md-6">--}}
+                                        {{--<h4>Fatura No</h4>--}}
+                                        {{--<p>--}}
+                                            {{--<input type="text" name="fatura_no" class="col-md-12 form-control">--}}
+                                        {{--</p>--}}
+                                    {{--</div>--}}
+                                    <div class="col-md-6">
+                                        <h4>İrsaliye No</h4>
+                                        <p>
+                                            <input type="text" name="irsaliye_no" class="col-md-12 form-control" required>
+                                        </p>
+                                        <input type="hidden" name="id" value="{{ $talep->id }}" class="col-md-12 form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Kapat</button>
+                            <button class="btn green"><i class="fa fa-truck"></i>&nbsp;Çıkış Yaptı</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @section('css')
     <!-- BEGIN PAGE LEVEL PLUGINS -->

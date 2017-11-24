@@ -14,6 +14,7 @@ use App\Urun;
 use App\UrunBirim;
 use App\UrunKategori;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -423,13 +424,14 @@ class getController extends AdminController
         }
     }
 
-    public function talepCikis($id)
+    public function talepCikis($id,Request $request)
     {
+//        $id = $request->id;
+
         $onayla = Talep::find($id)->update(['onay' => 2]);
+
         if ($onayla) {
-
             $i = 0;
-
             $talep = Talep::find($id);
             foreach ($talep->talepDetaylari as $talepDetay) {
 
@@ -441,6 +443,8 @@ class getController extends AdminController
                     'urun_miktar' => $talepDetay->urun_adet,
                     'hareket_yonu' => 0,
                     'birim_id' => $talep->birim_id,
+                    'fatura_no' => $request->fatura_no,
+                    'irsaliye_no' => $request->irsaliye_no,
                 ]);
                 $i++;
             }
