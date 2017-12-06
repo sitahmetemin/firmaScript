@@ -80,7 +80,6 @@ class PostController extends AdminController
 
     public function postProjeEkle(Request $request)
     {
-        Hareket::create($request->only());
         $this->authorize('create', Proje::class);
         $request->merge(['firma_id' => (Auth::user()->yetki == 'superAdmin' ? session()->get('firma_id') : Auth::user()->firma_id)]);
         $add = Proje::create($request->all());

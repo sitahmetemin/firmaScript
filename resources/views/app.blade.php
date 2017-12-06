@@ -199,7 +199,7 @@
                         </li>
                     @endif
                     @if(\Illuminate\Support\Facades\Auth::user()->yetki == 'admin' || \Illuminate\Support\Facades\Auth::user()->yetki == 'superAdmin' || \Illuminate\Support\Facades\Auth::user()->yetkiler->birim == 1)
-                        <li class="nav-item {{ (strpos(url()->full(),'birimler') ? 'active open' : ( strpos(url()->full(),'ekle-birim-turu') ? 'active open' : ' ' ))  }} ">
+                        <li class="nav-item {{ (strpos(url()->full(),'sube') ? 'active open' : ( strpos(url()->full(),'ekle-birim') ? 'active open' : ' ' ))  }} ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-table"></i>
                                 <span class="title">Firma Birimleri</span>
@@ -208,7 +208,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item">
-                                    <a href="/birimler" class="nav-link">
+                                    <a href="/subeler" class="nav-link">
                                         <span class="title">Birimler</span>
                                         <span class="selected"></span>
                                     </a>

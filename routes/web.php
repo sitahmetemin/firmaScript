@@ -13,7 +13,7 @@ Route::get('/firmalar/kimlik-firma/{id}', 'getController@firmaIDGiy');
 Route::get('/login','AdminController@getLogin')->name('login');
 Route::get('/logout','AdminController@logout')->name('logout');
 Route::get('/','getController@getirHome');
-Route::get('/birimler','getController@getirBirimler');
+Route::get('/subeler','getController@getirBirimler');
 Route::get('/calisanlar','getController@getirCalisanlar');
 Route::get('/firmalar','getController@getirFirmalar');
 Route::get('/musteriler','getController@getirMusteriler');
