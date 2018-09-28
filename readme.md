@@ -1,5 +1,3 @@
-<p align="center"><img src="http://ahmeteminsit.com/uploads/photos/logo.png"></p>
-
 <p align="center">
 <a href="http://www.ahmeteminsit"><img src="http://ahmeteminsit.com/uploads/photos/logo.png" alt="Kişisel Sitem"></a><br/>
 <p align="center">Stok Takip Sistemi</p>
